@@ -23,19 +23,19 @@ export default {
     return {
       navigations: [
         {
-          name: "Map",
+          name: "지도",
           href: "/",
         },
         {
-          name: "Search",
+          name: "검색",
           href: "/search",
         },
         {
-          name: "Info",
+          name: "정보",
           href: "/info",
         },
         {
-          name: "About",
+          name: "소개",
           href: "/about",
         },
       ],
