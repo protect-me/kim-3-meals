@@ -1,6 +1,7 @@
 @ -0,0 +1,42 @@
 <template>
   <header>
+    <Logo></Logo>
     <div class="nav nav-pills">
       <div
         class="nav-item" 
@@ -18,7 +19,12 @@
 </template>
 
 <script>
+import Logo from "@/components/Logo"
+
 export default {
+  components: {
+    Logo
+  },
   data() {
     return {
       navigations: [
@@ -44,4 +50,17 @@ export default {
 };
 </script>
 
-<style lang="scss">;</style>
+<style lang="scss" scoped>
+header {
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  .logo {
+    margin-right: 40px;
+  }
+}
+.nav {
+  font-family: 'TmonMonsori', sans-serif;
+}
+</style>
