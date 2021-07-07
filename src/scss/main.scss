@@ -1,0 +1,12 @@
+$primary: #3859B4;
+$secondary: #A1FBB3;
+$success: #ECAAB5;
+$info: #EAEAEE;
+$warning: #F1FB52;
+$danger: #BF3631;
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+@import "../../node_modules/bootstrap/scss/bootstrap"
