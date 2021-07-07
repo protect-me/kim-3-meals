@@ -3,7 +3,7 @@
   <RouterLink
     to="/"
     class="logo">
-    김사원세끼
+    ㄱㅅㅇㅅㄲ
   </RouterLink>
 </template>
 

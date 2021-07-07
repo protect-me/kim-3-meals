@@ -1,13 +1,36 @@
+@@ -0,0 +1,40 @@
 <template>
-  <div>About</div>
+  <div class="container">
+    <h1>
+      세 끼먹는 김사원
+      <br />
+      <div>김사원세끼</div>
+   </h1>
+    <p>서울 맛집, 맛없는 건 안 올립니다.</p>
+  </div>
 </template>
 
 <script>
 export default {
-
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.container {
+  padding-top: 20px;
+  font-family: 'TmonMonsori', sans-serif;
+  h1 {
+    font-size: 40px;
+    line-height: 1;
+    div {
+      margin-top: 10px;
+      font-size: 80px;
+      color: $primary;
+    }
+  }
+  p {
+    font-size: 30px;
+    color: $gray-600;
+  }
+}
 </style>
