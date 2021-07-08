@@ -15,15 +15,18 @@
         </RouterLink>
       </div>
     </div>
+    <ModalComp/>
   </header>
 </template>
 
 <script>
 import Logo from "@/components/Logo"
+import LoginModal from '@/components/LoginModal.vue'
 
 export default {
   components: {
-    Logo
+    Logo,
+    LoginModal
   },
   data() {
     return {
@@ -52,6 +55,7 @@ export default {
 
 <style lang="scss" scoped>
 header {
+  font-family: 'TmonMonsori', sans-serif;
   height: 70px;
   padding: 0 40px;
   display: flex;
@@ -59,8 +63,5 @@ header {
   .logo {
     margin-right: 40px;
   }
-}
-.nav {
-  font-family: 'TmonMonsori', sans-serif;
 }
 </style>

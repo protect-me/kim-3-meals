@@ -18,7 +18,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding-top: 20px;
-  font-family: 'TmonMonsori', sans-serif;
+  font-family: 'TmonMonsori';
   h1 {
     font-size: 40px;
     line-height: 1;
