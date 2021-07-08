@@ -9,6 +9,7 @@
   "dependencies": {
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
+    "firebase": "^8.7.0",
     "sass": "^1.35.1",
     "sass-loader": "^10",
     "vue": "^3.0.0",
