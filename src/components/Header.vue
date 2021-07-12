@@ -15,18 +15,15 @@
         </RouterLink>
       </div>
     </div>
-    <ModalComp/>
   </header>
 </template>
 
 <script>
 import Logo from "@/components/Logo"
-import LoginModal from '@/components/LoginModal.vue'
 
 export default {
   components: {
     Logo,
-    LoginModal
   },
   data() {
     return {
