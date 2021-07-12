@@ -1,7 +1,7 @@
 @ -0,0 +1,42 @@
 <template>
   <header>
-    <Logo></Logo>
+    <Logo />
     <div class="nav nav-pills">
       <div
         class="nav-item" 

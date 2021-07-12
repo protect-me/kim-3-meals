@@ -1,14 +1,27 @@
 <template>
   <div class="container">
-    <div class="title">신규 상호 등록</div>
+    <div class="title">
+      신규 상호 등록
+    </div>
   
     <div class="input-group mb-3">
-      <input v-model="form.name" type="text" class="form-control" placeholder="상호명" aria-label="Username">      
+      <input
+        v-model="form.name"
+        type="text"
+        class="form-control"
+        placeholder="상호명"
+        aria-label="Username" />      
     </div>
 
     <div class="selects mb-3">
-      <select v-model="form.category" class="form-select" >
-        <option selected class="default">카테고리</option>
+      <select
+        v-model="form.category"
+        class="form-select">
+        <option
+          selected
+          class="default">
+          카테고리
+        </option>
         <option
           v-for="(category, index) in categories"
           :key="index">
@@ -18,8 +31,13 @@
     </div>
 
     <div class="input-group mb-3 addressInput">
-      <input v-model="form.address" type="text" class="form-control" 
-        placeholder="주소 (아래에서 검색/선택 해주세요)" aria-label="Username" readonly>
+      <input
+        v-model="form.address"
+        type="text"
+        class="form-control" 
+        placeholder="주소 (아래에서 검색/선택 해주세요)"
+        aria-label="Username"
+        readonly />
     </div>
 
     <div class="input-group mb-3 daum-wrapper">
@@ -33,7 +51,6 @@
         등록
       </button>
     </div>
-
   </div>
 </template>
 
