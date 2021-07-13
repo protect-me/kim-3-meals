@@ -61,4 +61,14 @@ header {
     margin-right: 40px;
   }
 }
+@include media-breakpoint-down(md) {
+  header {
+    padding: 0;
+    flex-direction: column;
+    height: auto;
+    .logo {
+      margin: 5px 0;
+    }
+  }
+}
 </style>

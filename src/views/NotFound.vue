@@ -17,7 +17,6 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding-top: 20px;
   font-family: 'TmonMonsori';
   h1 {
     font-size: 30px;

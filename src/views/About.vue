@@ -17,14 +17,13 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding-top: 20px;
   font-family: 'TmonMonsori';
   h1 {
     font-size: 40px;
     line-height: 1;
     div {
       margin-top: 10px;
-      font-size: 80px;
+      font-size: 70px;
       color: $primary;
     }
   }

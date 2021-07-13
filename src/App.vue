@@ -15,3 +15,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+header {
+  margin-bottom: 20px;
+}
+@include media-breakpoint-down(md) {
+  header {
+    margin-bottom: 10px;
+  }
+}
+</style>
