@@ -31,6 +31,14 @@
 
     <div class="input-group mb-3">
       <input
+        v-model="form.url"
+        type="text"
+        class="form-control"
+        placeholder="해당하는 유튜브 링크를 입력해주세요 (ex. https://www.youtube.com/watch?...)" />
+    </div>
+
+    <div class="input-group mb-3">
+      <input
         v-model="form.tag"
         type="text"
         class="form-control"
@@ -74,6 +82,7 @@ export default {
       vueDaumPostcodeInput: null,
       form: {
         name: '',
+        url: '',
         category: '카테고리',
         tag: '',
         address: '',
