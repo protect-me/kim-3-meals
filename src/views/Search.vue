@@ -1,13 +1,27 @@
 <template>
-  <div>Search</div>
+  <div class="container">
+    <div class="title">
+      firestore test
+    </div>
+    <div class="list">
+      {{ stores }}
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import { mapState } from "vuex"
 
+export default {
+  mounted(){
+    this.$store.dispatch("searchStores")
+  },
+  computed: {
+    ...mapState(["stores"])
+  }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+;
 </style>

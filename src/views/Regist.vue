@@ -115,6 +115,7 @@ export default {
         return
       }
       console.log('apply!', this.form);
+      this.$firebase.firestore().collection("store").add(this.form)
     }
   }
 }
