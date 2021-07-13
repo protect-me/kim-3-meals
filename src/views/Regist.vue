@@ -101,7 +101,7 @@ export default {
           console.log(err)
         })
     },
-    apply() {
+    async apply() {
       if (!this.form.name) {
         alert("상호명을 확인해주세요") 
         return
@@ -114,8 +114,20 @@ export default {
         alert("주소를 확인해주세요")
         return
       }
-      console.log('apply!', this.form);
-      this.$firebase.firestore().collection("store").add(this.form)
+
+      try {
+        await this.$firebase.firestore().collection("store").add(this.form)
+        alert("성공적으로 등록되었습니다.")
+        // form 초기화
+        this.form.name = "",
+        this.form.category = "카테고리",
+        this.form.address = "",
+        this.form.lat = "",
+        this.form.lng = ""
+      } catch (err) {
+        alert(err.message)
+        console.log(err);
+      }
     }
   }
 }
