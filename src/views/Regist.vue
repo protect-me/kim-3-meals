@@ -16,9 +16,7 @@
       <select
         v-model="form.category"
         class="form-select">
-        <option
-          selected
-          class="default">
+        <option selected>
           카테고리
         </option>
         <option

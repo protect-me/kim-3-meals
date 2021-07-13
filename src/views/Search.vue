@@ -15,26 +15,28 @@
         placeholder="상호명 또는 메뉴를 검색해주세요"
         @keyup.enter="search" />
 
-      <select
-        v-model="form.category"
-        class="form-select">
-        <option
-          selected
-          class="default">
-          카테고리
-        </option>
-        <option
-          v-for="(category, index) in categories"
-          :key="index">
-          {{ category }}
-        </option>
-      </select>
+      <div class="selects">
+        <select
+          v-model="form.category"
+          class="form-select">
+          <option
+            selected
+            class="default">
+            카테고리
+          </option>
+          <option
+            v-for="(category, index) in categories"
+            :key="index">
+            {{ category }}
+          </option>
+        </select>
 
-      <button
-        class="btn btn-primary"
-        @click="search">
-        검색
-      </button>
+        <button
+          class="btn btn-primary"
+          @click="search">
+          검색
+        </button>
+      </div>
     </div>
 
     <div
@@ -121,13 +123,16 @@ export default {
     .search-input {
       margin-right: 10px;
     }
-    select {
-      width: 120px;
-      margin-right: 10px;
-    }
-    .btn {
-      width: 80px;
-      flex-shrink: 0;
+    .selects {
+      display: flex;
+      select {
+        width: 120px;
+        margin-right: 10px;
+      }
+      .btn {
+        width: 80px;
+        flex-shrink: 0;
+      }
     }
   }
   .no-result {
@@ -138,6 +143,24 @@ export default {
     align-items: center;
     background-color: $gray-200;
     color: $gray-600;
+  }
+  @include media-breakpoint-down(lg) {
+    .search {
+      display: block;
+      .search-input {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+      .selects {
+        display: flex;
+        select {
+          width: 50%
+        }
+        .btn {
+          width: 50%
+        }
+      }
+    }
   }
 }
 </style>
