@@ -34,7 +34,7 @@
         v-model="form.url"
         type="text"
         class="form-control"
-        placeholder="해당하는 유튜브 링크를 입력해주세요 (ex. https://www.youtube.com/watch?...)" />
+        placeholder="유튜브 링크 (ex. https://www.youtube.com/watch?...)" />
     </div>
 
     <div class="input-group mb-3">
@@ -61,6 +61,7 @@
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <button
         class="btn btn-primary"
+        :disabled="isProcessing"
         @click="apply">
         등록
       </button>
@@ -78,6 +79,7 @@ export default {
   },
   data() {
     return {
+      isProcessing: false,
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       vueDaumPostcodeInput: null,
       form: {
@@ -94,7 +96,6 @@ export default {
   methods: {
     addressSelected(selectedAddress) {
       this.form.address = selectedAddress.roadAddress
-      this.getLatLng()
     },
     async getLatLng() {
       // JavaSciprt Key : e9b8744f142d87e82a9a840a32aa395b
@@ -118,16 +119,26 @@ export default {
         })
     },
     async apply() {
+      this.isProcessing = true
       if (!this.form.name) {
         alert("상호명을 확인해주세요") 
+        this.isProcessing = false
         return
       }
       if (!this.form.category || this.form.category == "카테고리") {
         alert("카테고리를 확인해주세요")
+        this.isProcessing = false
         return
       }
+      if (!this.form.url) {
+        alert("유튜브 링크를 확인해주세요")
+        this.isProcessing = false
+        return
+      }
+      await this.getLatLng()
       if (!this.form.address || !this.form.lat || !this.form.lng ) {
         alert("주소를 확인해주세요")
+        this.isProcessing = false
         return
       }
 
@@ -138,11 +149,15 @@ export default {
         this.form.name = "",
         this.form.category = "카테고리",
         this.form.address = "",
+        this.form.url = "",
+        this.form.tag = "",
         this.form.lat = "",
         this.form.lng = ""
       } catch (err) {
         alert(err.message)
         console.log(err);
+      } finally {
+        this.isProcessing = false
       }
     }
   }
