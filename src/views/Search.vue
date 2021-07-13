@@ -3,7 +3,7 @@
     <div class="title">
       검색 및 리스트
       <span>
-        전체 {{ Object.keys(stores).length }} 개
+        결과 {{ Object.keys(stores).length }} 개
       </span>
     </div>
 
@@ -11,7 +11,9 @@
       <input
         type="text"
         class="form-control search-input"
-        placeholder="상호명 또는 메뉴를 검색해주세요" />
+        v-model="form.keyword"
+        placeholder="상호명 또는 메뉴를 검색해주세요"
+        @keyup.enter="search" />
 
       <select
         v-model="form.category"
@@ -35,7 +37,9 @@
       </button>
     </div>
 
-    <div class="list">
+    <div
+      class="list"
+      v-if="stores.length > 0">
       <table class="table table-striped">
         <caption></caption>
         <thead>
@@ -62,6 +66,13 @@
         </tbody>
       </table>
     </div>
+    <div
+      class="no-result"
+      v-else>
+      <div class="no-result-text">
+        검색어를 입력하거나 카테고리를 선택해주세요 :)
+      </div>
+    </div>
   </div>
 </template>
 
@@ -69,9 +80,9 @@
 import { mapState } from "vuex"
 
 export default {
-  mounted(){
-    this.$store.dispatch("searchStores")
-  },
+  // mounted(){
+  //   this.$store.dispatch("searchStores", null)
+  // },
   computed: {
     ...mapState(["stores"])
   },
@@ -79,13 +90,14 @@ export default {
     return {
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
+        keyword: '',
         category: '카테고리'
       }
     }
   },
   methods: {
     search() {
-      console.log(this.form);
+      this.$store.dispatch("searchStores", this.form)
     }
   }
 }
@@ -118,7 +130,14 @@ export default {
       flex-shrink: 0;
     }
   }
-  .list {
+  .no-result {
+    border-radius: 5px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $gray-200;
+    color: $gray-600;
   }
 }
 </style>
