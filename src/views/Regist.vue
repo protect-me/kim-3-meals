@@ -9,8 +9,7 @@
         v-model="form.name"
         type="text"
         class="form-control"
-        placeholder="상호명"
-        aria-label="Username" />      
+        placeholder="상호명" />      
     </div>
 
     <div class="selects mb-3">
@@ -30,13 +29,20 @@
       </select>
     </div>
 
+    <div class="input-group mb-3">
+      <input
+        v-model="form.tag"
+        type="text"
+        class="form-control"
+        placeholder="태그 (메뉴명, 지역명 등을 #으로 구분해서 입력해주세요)" />
+    </div>
+
     <div class="input-group mb-3 addressInput">
       <input
         v-model="form.address"
         type="text"
         class="form-control" 
         placeholder="주소 (아래에서 검색/선택 해주세요)"
-        aria-label="Username"
         readonly />
     </div>
 
@@ -69,6 +75,7 @@ export default {
       form: {
         name: '',
         category: '카테고리',
+        tag: '',
         address: '',
         lat: '',
         lng: ''
