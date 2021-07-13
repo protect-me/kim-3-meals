@@ -40,56 +40,33 @@
     </div>
 
     <div
-      class="list"
-      v-if="stores.length > 0">
-      <table class="table table-striped">
-        <caption></caption>
-        <thead>
-          <tr>
-            <th scoped="col">
-              상호명
-            </th>
-            <th scoped="col">
-              카테고리
-            </th>
-            <th scoped="col">
-              주소
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(store, index) in stores"
-            :key="index">
-            <td>{{ store.name }}</td>
-            <td>{{ store.category }}</td>
-            <td>{{ store.address }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div
-      class="no-result"
-      v-else>
+      v-if="stores.length <= 0"
+      class="no-result">
       <div class="no-result-text">
         검색어를 입력하거나 카테고리를 선택해주세요 :)
       </div>
     </div>
+
+    <StoreList
+      v-else-if="stores.length > 0 && mode == 'list'" 
+      :stores="stores" />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex"
+import StoreList from "@/components/StoreList"
 
 export default {
-  // mounted(){
-  //   this.$store.dispatch("searchStores", null)
-  // },
+  components: {
+    StoreList
+  },
   computed: {
     ...mapState(["stores"])
   },
   data() {
     return {
+      mode: 'list',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
         keyword: '',
