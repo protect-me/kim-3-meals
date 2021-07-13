@@ -141,6 +141,9 @@ export default {
       }
 
       try {
+        this.form.createdAt = Date.now()
+        this.form.updatedAt = Date.now()
+  
         await this.$firebase.firestore().collection("store").add(this.form)
         alert("성공적으로 등록되었습니다.")
         // form 초기화
@@ -151,11 +154,14 @@ export default {
         this.form.tag = "",
         this.form.lat = "",
         this.form.lng = ""
+        this.form.createdAt = ""
+        this.form.updatedAt = ""
       } catch (err) {
         alert(err.message)
         console.log(err);
       } finally {
         this.isProcessing = false
+        window.scrollTo(0,0);
       }
     }
   }

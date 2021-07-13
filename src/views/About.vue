@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <h1>
-      세 끼먹는 김사원
+      세 끼 먹는 김사원
       <br />
       <div>김사원세끼</div>
     </h1>
