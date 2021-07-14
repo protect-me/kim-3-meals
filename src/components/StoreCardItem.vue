@@ -8,12 +8,12 @@
 
     <div class="info">
       <div class="left-side">
-        <div class="title-category">
+        <div class="first-line">
           <div class="title">
             {{ store.name }}
           </div>
-          <div class="category">
-            {{ store.category }}
+          <div class="subtitle">
+            {{ store.addressLocal }} · {{ store.category }}
           </div>          
         </div>
         <div class="address">
@@ -69,21 +69,21 @@ export default {
     
     .left-side {
       margin-left: 10px;
-      .title-category {
+      .first-line {
         display: flex;
         align-items: flex-end;
         .title {
-          font-size: 20px;
+          font-size: 16px;
           color: $gray-700;
           margin-right: 10px;
         }
-        .category {
-          font-size: 15px;
+        .subtitle {
+          font-size: 12px;
           color: $gray-500;
         }
       }
       .address {
-        font-size: 15px;
+        font-size: 14px;
         color: $gray-600;
       }
     }

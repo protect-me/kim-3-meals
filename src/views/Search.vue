@@ -21,6 +21,7 @@
               name="btnradio"
               id="btnradio1"
               autocomplete="off"
+              checked
               v-model="resultModeList" />
             <label
               class="btn btn-outline-primary"
@@ -37,7 +38,6 @@
               name="btnradio"
               id="btnradio2"
               autocomplete="off" 
-              checked
               v-model="resultModeCard" />
             <label
               class="btn btn-outline-primary"
@@ -120,8 +120,8 @@ export default {
   },
   data() {
     return {
-      resultModeList: 'off',
-      resultModeCard: 'on',
+      resultModeList: 'on',
+      resultModeCard: 'off',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
         keyword: '',
