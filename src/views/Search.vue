@@ -86,8 +86,10 @@
     </div>
 
     <div class="result">
+      <Loader v-if="loading && resultModeCard !== ''" />
+
       <div
-        v-if="stores.length <= 0 && !isSearched"
+        v-else-if="stores.length <= 0 && !isSearched"
         class="no-result">
         <div class="no-result-text">
           검색어를 입력하거나 카테고리를 선택해주세요 :)
@@ -98,7 +100,7 @@
         v-else-if="stores.length <= 0 && isSearched"
         class="no-result">
         <div class="no-result-text">
-          검색어 결과가 없습니다 :(
+          검색 결과가 없습니다 :(
         </div>
       </div>
 
@@ -117,14 +119,16 @@
 import { mapState } from "vuex"
 import StoreList from "@/components/StoreList"
 import StoreCard from "@/components/StoreCard"
+import Loader from "@/components/Loader"
 
 export default {
   components: {
     StoreList,
-    StoreCard
+    StoreCard,
+    Loader
   },
   computed: {
-    ...mapState(["stores"])
+    ...mapState(["stores", "loading"])
   },
   data() {
     return {
@@ -150,7 +154,7 @@ export default {
     btnClicked2() {
       this.resultModeList = 'off'
       this.resultModeCard = 'on'
-}
+    }
   }
 }
 </script>
@@ -177,8 +181,6 @@ export default {
       .result-count {
         font-size: 15px;
         color: $gray-600;
-      }
-      .result-mode {
       }
     }
   }
@@ -208,8 +210,6 @@ export default {
     border-radius: 5px;
     background-color: $gray-200;
     color: $gray-600;
-    .no-result {
-    }
   }
   @include media-breakpoint-down(lg) {
     .search {

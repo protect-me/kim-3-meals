@@ -4,7 +4,7 @@ import firebase from "../plugins/firebase.js"
 export default createStore({
   state: {
     stores: [],
-    loading: true,
+    loading: false,
   },
   mutations: {
     updateState(state, payload) {
@@ -16,17 +16,17 @@ export default createStore({
       state.stores = []
       state.loading = false
     }
-
   },
   actions: {
-    async searchStores({commit}, payload) {
+    async searchStores({state, commit}, payload) {
+      if (state.loading) return // loading 중일 경우 return 
+
+      commit('updateState', { loading: true }) // Loading On
+
+      state.loading = true
       let snapshot = null
       let stores = null
       const { keyword, category } = payload;
-
-      console.log('payload', payload);
-      console.log("keyword", keyword);
-      console.log("category", category);
       
       if(category == "카테고리") {
         // 카테고리가 선택되지 않은 경우, 모든 데이터 get
@@ -34,6 +34,7 @@ export default createStore({
           snapshot = await firebase.firestore().collection("store").orderBy('createdAt', 'desc').get()
         } catch (err) {
           console.log(err);
+          commit('updateState', { loading: false }) // Loading Off
         }
       } else {
         // 카테고리가 선택된 경우, 1차 필터링
@@ -41,6 +42,7 @@ export default createStore({
           snapshot = await firebase.firestore().collection("store").where("category", "==", category).orderBy('createdAt', 'desc').get()
         } catch (err) {
           console.log(err);
+          commit('updateState', { loading: false }) // Loading Off
         }
       }
 
@@ -80,7 +82,8 @@ export default createStore({
         }
       })
       commit("updateState", {
-        stores: stores
+        stores: stores,
+        loading: false
       })
     }
   },
