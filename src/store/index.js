@@ -30,10 +30,18 @@ export default createStore({
       
       if(category == "카테고리") {
         // 카테고리가 선택되지 않은 경우, 모든 데이터 get
-        snapshot = await firebase.firestore().collection("store").orderBy('createdAt', 'desc').get()
+        try {
+          snapshot = await firebase.firestore().collection("store").orderBy('createdAt', 'desc').get()
+        } catch (err) {
+          console.log(err);
+        }
       } else {
         // 카테고리가 선택된 경우, 1차 필터링
-        snapshot = await firebase.firestore().collection("store").where("category", "==", category).orderBy('createdAt', 'desc').get()
+        try{
+          snapshot = await firebase.firestore().collection("store").where("category", "==", category).orderBy('createdAt', 'desc').get()
+        } catch (err) {
+          console.log(err);
+        }
       }
 
       if (keyword) {
@@ -53,7 +61,7 @@ export default createStore({
         const item = value.data()
         // "?v=", "&t=" 두 문자열 사이의 문자열을 추출
         const subIndex = item.url.indexOf("?v=")
-        const videoId = item.url.substring(subIndex+3, subIndex+14) 
+        const videoId = item.url.substring(subIndex+3, subIndex+14)
         const thumbnail = `https://img.youtube.com/vi/${videoId}/0.jpg`
         return {
           id: value.id,
