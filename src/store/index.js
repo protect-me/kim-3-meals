@@ -49,15 +49,25 @@ export default createStore({
         stores = snapshot.docs
       }
 
+      
+      
       stores = stores.map(value => {
         const item = value.data()
+        // "?v=", "&t=" 두 문자열 사이의 문자열을 추출
+        const subIndex = item.url.indexOf("?v=")
+        const videoId = item.url.substring(subIndex+3, subIndex+14) 
+        const thumbnail = `https://img.youtube.com/vi/${videoId}/0.jpg`
         return {
           id: value.id,
           name: item.name,
           category: item.category,
           address: item.address,
           lat: item.lat,
-          lng: item.lng
+          lng: item.lng,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          url: item.url,
+          thumbnail: thumbnail
         }
       })
       commit("updateState", {
