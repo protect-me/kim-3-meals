@@ -1,10 +1,58 @@
 <template>
   <div class="container">
-    <div class="title">
-      검색 및 리스트
-      <span>
-        결과 {{ Object.keys(stores).length }} 개
-      </span>
+    <div class="search-header">
+      <div class="title">
+        검색 및 리스트
+      </div>
+
+      <div class="subtitle">
+        <div class="result-count">
+          결과 {{ Object.keys(stores).length }} 개
+        </div>
+
+
+        <div class="result-mode">
+          {{ resultModeList }} / {{ resultModeCard }}
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic radio toggle button group">
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio1"
+              autocomplete="off"
+              checked
+              v-model="resultModeList" />
+            <label
+              class="btn btn-outline-primary"
+              for="btnradio1"
+              @click="btnClicked1">
+              <i
+                class="fa fa-list"
+                aria-hidden="true"></i>
+            </label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio2"
+              autocomplete="off" 
+              v-model="resultModeCard" />
+            <label
+              class="btn btn-outline-primary"
+              for="btnradio2"
+              @click="btnClicked2">
+
+              <i
+                class="fa fa-th-large"
+                aria-hidden="true"></i>
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="search">
@@ -48,7 +96,7 @@
     </div>
 
     <StoreList
-      v-else-if="stores.length > 0 && mode == 'list'" 
+      v-else-if="stores.length > 0 && resultModeList == 'on'" 
       :stores="stores" />
   </div>
 </template>
@@ -66,7 +114,8 @@ export default {
   },
   data() {
     return {
-      mode: 'list',
+      resultModeList: 'on',
+      resultModeCard: 'off',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
         keyword: '',
@@ -77,7 +126,15 @@ export default {
   methods: {
     search() {
       this.$store.dispatch("searchStores", this.form)
-    }
+    },
+    btnClicked1() {
+      this.resultModeList = 'on'
+      this.resultModeCard = 'off'
+    },
+    btnClicked2() {
+      this.resultModeList = 'off'
+      this.resultModeCard = 'on'
+}
   }
 }
 </script>
@@ -85,13 +142,28 @@ export default {
 <style lang="scss" scoped>
 .container {
   font-family: 'TmonMonsori';
-  .title {
-    font-size: 30px;
-    color: $primary;
+  .search-header {
     margin-bottom: 20px;
-    span {
-      font-size: 15px;
-      color: $gray-600;
+    display: flex;    
+    .title {
+      display: flex;
+      align-items: flex-end;
+      font-size: 30px;
+      color: $primary;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    .subtitle {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: flex-end;
+      .result-count {
+        font-size: 15px;
+        color: $gray-600;
+      }
+      .result-mode {
+      }
     }
   }
   .search {
