@@ -219,5 +219,10 @@ export default {
       }
     }
   }
+  @include media-breakpoint-down(sm) {
+    .search-header {
+      display: block;
+    }
+  }
 }
 </style>

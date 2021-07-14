@@ -26,6 +26,7 @@
           :href="store.url"
           target="_blank">
           <i
+            title="새 탭에서 유튜브 링크 열기"
             class="fa fa-arrow-circle-o-right fa-2x"
             aria-hidden="true"></i>
         </a>
