@@ -10,9 +10,7 @@
           결과 {{ Object.keys(stores).length }} 개
         </div>
 
-
         <div class="result-mode">
-          {{ resultModeList }} / {{ resultModeCard }}
           <div
             class="btn-group"
             role="group"
@@ -23,7 +21,6 @@
               name="btnradio"
               id="btnradio1"
               autocomplete="off"
-              checked
               v-model="resultModeList" />
             <label
               class="btn btn-outline-primary"
@@ -40,6 +37,7 @@
               name="btnradio"
               id="btnradio2"
               autocomplete="off" 
+              checked
               v-model="resultModeCard" />
             <label
               class="btn btn-outline-primary"
@@ -87,35 +85,43 @@
       </div>
     </div>
 
-    <div
-      v-if="stores.length <= 0"
-      class="no-result">
-      <div class="no-result-text">
-        검색어를 입력하거나 카테고리를 선택해주세요 :)
+    <div class="result">
+      <div
+        v-if="stores.length <= 0"
+        class="no-result">
+        <div class="no-result-text">
+          검색어를 입력하거나 카테고리를 선택해주세요 :)
+        </div>
       </div>
-    </div>
 
-    <StoreList
-      v-else-if="stores.length > 0 && resultModeList == 'on'" 
-      :stores="stores" />
+      <StoreList
+        v-else-if="stores.length > 0 && resultModeList == 'on'" 
+        :stores="stores" />
+
+      <StoreCard
+        v-else-if="stores.length > 0 && resultModeCard == 'on'" 
+        :stores="stores" />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import StoreList from "@/components/StoreList"
+import StoreCard from "@/components/StoreCard"
 
 export default {
   components: {
-    StoreList
+    StoreList,
+    StoreCard
   },
   computed: {
     ...mapState(["stores"])
   },
   data() {
     return {
-      resultModeList: 'on',
-      resultModeCard: 'off',
+      resultModeList: 'off',
+      resultModeCard: 'on',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
         keyword: '',
@@ -184,14 +190,16 @@ export default {
       }
     }
   }
-  .no-result {
-    border-radius: 5px;
-    height: 100px;
+  .result {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100px;
+    border-radius: 5px;
     background-color: $gray-200;
     color: $gray-600;
+    .no-result {
+    }
   }
   @include media-breakpoint-down(lg) {
     .search {

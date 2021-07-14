@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div class="store-list">
     <table class="table table-striped">
       <caption></caption>
       <thead>
@@ -40,5 +40,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-;
+.store-list {
+  width: 100%;
+  background-color: #fff;
+}
 </style>
