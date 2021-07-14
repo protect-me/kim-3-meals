@@ -87,10 +87,18 @@
 
     <div class="result">
       <div
-        v-if="stores.length <= 0"
+        v-if="stores.length <= 0 && !isSearched"
         class="no-result">
         <div class="no-result-text">
           검색어를 입력하거나 카테고리를 선택해주세요 :)
+        </div>
+      </div>
+
+      <div
+        v-else-if="stores.length <= 0 && isSearched"
+        class="no-result">
+        <div class="no-result-text">
+          검색어 결과가 없습니다 :(
         </div>
       </div>
 
@@ -120,6 +128,7 @@ export default {
   },
   data() {
     return {
+      isSearched: false,
       resultModeList: 'on',
       resultModeCard: 'off',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
@@ -131,6 +140,7 @@ export default {
   },
   methods: {
     search() {
+      this.isSearched = true
       this.$store.dispatch("searchStores", this.form)
     },
     btnClicked1() {
