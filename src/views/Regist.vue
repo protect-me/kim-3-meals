@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       isProcessing: false,
-      categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
+      categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '포차/가맥', '기타'],
       vueDaumPostcodeInput: null,
       form: {
         name: '',
@@ -86,6 +86,9 @@ export default {
         category: '카테고리',
         tag: '',
         address: '',
+        addressJibun: '',
+        addressSigungu: '',
+        addressLocal: '',
         lat: '',
         lng: ''
       }
@@ -94,6 +97,13 @@ export default {
   methods: {
     addressSelected(selectedAddress) {
       this.form.address = selectedAddress.roadAddress
+      this.form.addressSigungu = selectedAddress.sigungu
+      this.form.addressLocal = selectedAddress.bname
+      if (selectedAddress.autoJibunAddress) {
+        this.form.addressJibun = selectedAddress.autoJibunAddress        
+      } else if (selectedAddress.jibunAddress){
+        this.form.addressJibun = selectedAddress.jibunAddress                
+      }
     },
     async getLatLng() {
       // JavaSciprt Key : e9b8744f142d87e82a9a840a32aa395b
@@ -146,16 +156,8 @@ export default {
   
         await this.$firebase.firestore().collection("store").add(this.form)
         alert("성공적으로 등록되었습니다.")
-        // form 초기화
-        this.form.name = "",
-        this.form.category = "카테고리",
-        this.form.address = "",
-        this.form.url = "",
-        this.form.tag = "",
-        this.form.lat = "",
-        this.form.lng = ""
-        this.form.createdAt = ""
-        this.form.updatedAt = ""
+        this.initForm() // form 초기화
+
       } catch (err) {
         alert(err.message)
         console.log(err);
@@ -163,6 +165,20 @@ export default {
         this.isProcessing = false
         window.scrollTo(0,0);
       }
+    },
+    initForm() {
+      this.form.name = "",
+      this.form.category = "카테고리",
+      this.form.address = "",
+      this.form.addressJibun = ""
+      this.form.addressSigungu = ""
+      this.form.addressLocal = ""
+      this.form.url = "",
+      this.form.tag = "",
+      this.form.lat = "",
+      this.form.lng = ""
+      this.form.createdAt = ""
+      this.form.updatedAt = ""
     }
   }
 }

@@ -48,8 +48,6 @@ export default createStore({
         // 키워드가 없을 경우
         stores = snapshot.docs
       }
-
-      
       
       stores = stores.map(value => {
         const item = value.data()
@@ -62,6 +60,9 @@ export default createStore({
           name: item.name,
           category: item.category,
           address: item.address,
+          addressJibun: item.addressJibun,
+          addressSigungu: item.addressSigungu,
+          addressLocal: item.addressLocal,
           lat: item.lat,
           lng: item.lng,
           createdAt: item.createdAt,
