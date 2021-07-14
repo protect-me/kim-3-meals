@@ -30,10 +30,10 @@ export default createStore({
       
       if(category == "카테고리") {
         // 카테고리가 선택되지 않은 경우, 모든 데이터 get
-        snapshot = await firebase.firestore().collection("store").get()
+        snapshot = await firebase.firestore().collection("store").orderBy('createdAt', 'desc').get()
       } else {
         // 카테고리가 선택된 경우, 1차 필터링
-        snapshot = await firebase.firestore().collection("store").where("category", "==", category).get()
+        snapshot = await firebase.firestore().collection("store").where("category", "==", category).orderBy('createdAt', 'desc').get()
       }
 
       if (keyword) {
