@@ -104,7 +104,8 @@
       <Loader v-if="loading" />
 
       <StoreMap 
-        v-else-if="resultModeMap == 'on'" />
+        v-else-if="resultModeMap == 'on'"
+        :stores="stores" />
 
       <div
         v-else-if="stores.length <= 0 && !isSearched"
