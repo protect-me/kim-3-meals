@@ -21,12 +21,11 @@
               name="btnradio"
               id="btnradio1"
               autocomplete="off"
-              checked
               v-model="resultModeList" />
             <label
               class="btn btn-outline-primary"
               for="btnradio1"
-              @click="btnClicked1">
+              @click="listBtnClicked">
               <i
                 class="fa fa-list"
                 aria-hidden="true"></i>
@@ -42,10 +41,26 @@
             <label
               class="btn btn-outline-primary"
               for="btnradio2"
-              @click="btnClicked2">
-
+              @click="cardBtnClicked">
               <i
                 class="fa fa-th-large"
+                aria-hidden="true"></i>
+            </label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio3"
+              autocomplete="off" 
+              checked
+              v-model="resultModeMap" />
+            <label
+              class="btn btn-outline-primary"
+              for="btnradio3"
+              @click="mapBtnClicked">
+              <i
+                class="fa fa-map"
                 aria-hidden="true"></i>
             </label>
           </div>
@@ -86,7 +101,10 @@
     </div>
 
     <div class="result">
-      <Loader v-if="loading && resultModeCard !== ''" />
+      <Loader v-if="loading" />
+
+      <StoreMap 
+        v-else-if="resultModeMap == 'on'" />
 
       <div
         v-else-if="stores.length <= 0 && !isSearched"
@@ -119,12 +137,14 @@
 import { mapState } from "vuex"
 import StoreList from "@/components/StoreList"
 import StoreCard from "@/components/StoreCard"
+import StoreMap from "@/components/StoreMap"
 import Loader from "@/components/Loader"
 
 export default {
   components: {
     StoreList,
     StoreCard,
+    StoreMap,
     Loader
   },
   computed: {
@@ -133,8 +153,9 @@ export default {
   data() {
     return {
       isSearched: false,
-      resultModeList: 'on',
+      resultModeList: 'of',
       resultModeCard: 'off',
+      resultModeMap: 'on',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
         keyword: '',
@@ -147,13 +168,20 @@ export default {
       this.isSearched = true
       this.$store.dispatch("searchStores", this.form)
     },
-    btnClicked1() {
+    listBtnClicked() {
       this.resultModeList = 'on'
       this.resultModeCard = 'off'
+      this.resultModeMap = 'off'
     },
-    btnClicked2() {
+    cardBtnClicked() {
       this.resultModeList = 'off'
       this.resultModeCard = 'on'
+      this.resultModeMap = 'off'
+    },
+    mapBtnClicked() {
+      this.resultModeList = 'off'
+      this.resultModeCard = 'off'
+      this.resultModeMap = 'on'
     }
   }
 }
