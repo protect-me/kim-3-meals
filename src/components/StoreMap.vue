@@ -85,21 +85,47 @@ export default {
         });
 
         var moreInfo = 
-          `<div class="customoverlay">
-            <a href="https://map.kakao.com/link/map/11394059" 
-              target="_blank">
-              <span class="title">
-                ${this.stores[i].name}
-                more!!
-              </span>
-            </a>
+  // <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">
+        `
+          <div class="store-card-item">
+            <div
+              class="thumbnail"
+              style="background-image: url(${this.stores[i].thumbnail});
+                        background-position:center;">
+            </div>
+            <div class="info">
+              <div class="left-side">
+                <div class="first-line">
+                  <div class="title">
+                    ${this.stores[i].name}
+                  </div>
+                  <div class="subtitle">
+                    ${this.stores[i].addressLocal } · ${this.stores[i].category }
+                  </div>          
+                </div>
+                <div class="address">
+                  ${this.stores[i].address }
+                </div>
+              </div>
+
+              <div class="right-side">
+                <a
+                  href=${this.stores[i].url}
+                  target="_blank">
+                  <i
+                    title="새 탭에서 유튜브 링크 열기"
+                    class="fa fa-arrow-circle-o-right fa-2x"
+                    aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
           </div>`
         var customOverlayMore = new kakao.maps.CustomOverlay({
           clickable: true,
           content: moreInfo,
           position: latlng,
           xAnchor: 0.5,
-          yAnchor: 2.3,
+          yAnchor: 1.25,
           zIndex: 3
         });
         kakao.maps.event.addListener(map, 'click', function() {
@@ -166,4 +192,57 @@ export default {
 .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 
+.store-card-item {
+  position:relative;bottom:0px;width:200px;height:150px;
+  margin: 10px;
+  line-height: 1.2;
+  border: 2px solid $info;
+  .thumbnail {
+    $width: 196px;
+    width: $width;
+    height: $width * 9 / 16;
+    border-radius: 4px 4px 0 0;
+    background-color: $gray-400;
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+  }
+  .info {
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+    
+    .left-side {
+      margin-left: 6px;
+      .first-line {
+        /* display: flex;
+        align-items: flex-end; */
+        .title {
+          font-size: 12px;
+          color: $gray-700;
+          margin-right: 10px;
+        }
+        .subtitle {
+          font-size: 11px;
+          color: $gray-500;
+        }
+      }
+      .address {
+        font-size: 11px;
+        color: $gray-600;
+      }
+    }
+    .right-side {
+      margin-right: 6px;
+      a {
+        cursor: pointer;
+        color: $primary;
+        text-decoration:none;
+      }
+    }
+  }
+}
 </style>
