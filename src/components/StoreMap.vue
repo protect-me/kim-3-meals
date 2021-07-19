@@ -15,6 +15,8 @@ export default {
   },
   data() {
     return {
+      map: null,
+      markers: [],
       selectedMarker: null
     }
   },
@@ -22,6 +24,15 @@ export default {
     window.kakao && window.kakao.maps
       ? this.initMap()
       : this.addKakaoMapScript();
+  },
+  watch: {
+    stores(nv, ov) {
+      console.log("o", ov);
+      console.log("n", nv);
+      console.log(this.map);
+      // stores가 변경되면 marker를 다시 그림
+      this.setMarker()
+    }
   },
   methods: {
     addKakaoMapScript() {
@@ -33,7 +44,6 @@ export default {
       document.head.appendChild(script);
     },
     initMap() {
-      let that = this
       var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
       var options = {
         //지도를 생성할 때 필요한 기본 옵션
@@ -46,6 +56,13 @@ export default {
 
       var zoomControl = new kakao.maps.ZoomControl(); //줌 컨트롤 생성
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+      this.map = map
+      this.setMarker()
+    },
+    setMarker () {
+      this.initMarkers() // 기존 마커 초기화
+      let that = this
+      let map = this.map
 
       // 마커 이미지의 이미지 주소
       var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
@@ -85,8 +102,7 @@ export default {
         });
 
         var moreInfo = 
-        `
-          <div class="store-card-item">
+          `<div class="store-card-item-map">
             <div
               class="thumbnail"
               style="background-image: url(${this.stores[i].thumbnail});
@@ -140,6 +156,7 @@ export default {
         kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, customOverlay));
         kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(map, customOverlay));
         kakao.maps.event.addListener(marker, 'click', makeOverClickListener(map, marker, customOverlayMore));
+        this.markers.push(marker) // this.markers 배열에 추가
       }
       function makeOverListener(map, marker, customOverlay){
         return function() {
@@ -178,6 +195,11 @@ export default {
         // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동)
         map.panTo(latlng);
       }
+    },
+    initMarkers() {
+      this.markers.forEach(marker => {
+        marker.setMap(null);
+      })
     }
   }
 };
@@ -201,7 +223,7 @@ export default {
 .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
 .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 
-.store-card-item {
+.store-card-item-map {
   position:relative;bottom:0px;width:200px;height:150px;
   margin: 10px;
   line-height: 1.2;

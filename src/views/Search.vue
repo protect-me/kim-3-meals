@@ -21,7 +21,7 @@
               name="btnradio"
               id="btnradio1"
               autocomplete="off"
-              v-model="resultModeList" />
+              v-model="resultMode.list" />
             <label
               class="btn btn-outline-primary"
               for="btnradio1"
@@ -37,7 +37,7 @@
               name="btnradio"
               id="btnradio2"
               autocomplete="off" 
-              v-model="resultModeCard" />
+              v-model="resultMode.card" />
             <label
               class="btn btn-outline-primary"
               for="btnradio2"
@@ -54,7 +54,7 @@
               id="btnradio3"
               autocomplete="off" 
               checked
-              v-model="resultModeMap" />
+              v-model="resultMode.map" />
             <label
               class="btn btn-outline-primary"
               for="btnradio3"
@@ -104,7 +104,7 @@
       <Loader v-if="loading" />
 
       <StoreMap 
-        v-else-if="resultModeMap == 'on'"
+        v-else-if="resultMode.map == 'on'"
         :stores="stores" />
 
       <div
@@ -124,11 +124,11 @@
       </div>
 
       <StoreList
-        v-else-if="stores.length > 0 && resultModeList == 'on'" 
+        v-else-if="stores.length > 0 && resultMode.list == 'on'" 
         :stores="stores" />
 
       <StoreCard
-        v-else-if="stores.length > 0 && resultModeCard == 'on'" 
+        v-else-if="stores.length > 0 && resultMode.card == 'on'" 
         :stores="stores" />
     </div>
   </div>
@@ -154,9 +154,11 @@ export default {
   data() {
     return {
       isSearched: false,
-      resultModeList: 'of',
-      resultModeCard: 'off',
-      resultModeMap: 'on',
+      resultMode : {
+        list: 'off',
+        card: 'off',
+        map: 'on',
+      },
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
       form: {
         keyword: '',
@@ -167,22 +169,25 @@ export default {
   methods: {
     search() {
       this.isSearched = true
+      for(const arr of Object.entries(this.resultMode)) {
+        if (arr.includes('on')) this.form.resultMode = arr[0]
+      }
       this.$store.dispatch("searchStores", this.form)
     },
     listBtnClicked() {
-      this.resultModeList = 'on'
-      this.resultModeCard = 'off'
-      this.resultModeMap = 'off'
+      this.resultMode.list = 'on'
+      this.resultMode.card = 'off'
+      this.resultMode.map = 'off'
     },
     cardBtnClicked() {
-      this.resultModeList = 'off'
-      this.resultModeCard = 'on'
-      this.resultModeMap = 'off'
+      this.resultMode.list = 'off'
+      this.resultMode.card = 'on'
+      this.resultMode.map = 'off'
     },
     mapBtnClicked() {
-      this.resultModeList = 'off'
-      this.resultModeCard = 'off'
-      this.resultModeMap = 'on'
+      this.resultMode.list = 'off'
+      this.resultMode.card = 'off'
+      this.resultMode.map = 'on'
     }
   }
 }

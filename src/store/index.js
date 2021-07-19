@@ -21,12 +21,16 @@ export default createStore({
     async searchStores({state, commit}, payload) {
       if (state.loading) return // loading 중일 경우 return 
 
-      commit('updateState', { loading: true }) // Loading On
+      const { keyword, category, resultMode } = payload;
 
-      state.loading = true
+      // mode가 map일 경우, loading을 활성화 시키지 않음으로써
+      // kakao map이 re-render되는 것을 방지하고자 함
+      if (resultMode !== "map") {
+        commit('updateState', { loading: true }) // Loading On
+      }
+
       let snapshot = null
       let stores = null
-      const { keyword, category } = payload;
       
       if(category == "카테고리") {
         // 카테고리가 선택되지 않은 경우, 모든 데이터 get
