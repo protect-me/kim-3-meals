@@ -6,7 +6,6 @@
       zIndex
     }"
     :class="{
-      loader,
       absolute, 
       fixed
     }"

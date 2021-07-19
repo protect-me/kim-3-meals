@@ -1,10 +1,11 @@
 const functions = require('firebase-functions');
+// firebase 콘솔 > 프로젝트 개요 옆 설정 아이콘 > 프로젝트 설정 > 서비스 계정 > Firebase Admin SDK > Node.js
 var admin = require("firebase-admin");
 var serviceAccount = require("./key.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://kim-3-meals-default-rtdb.firebaseio.com"
+  databaseURL: functions.config().admin.db_url
 });
 
 const db = admin.database()
@@ -15,7 +16,8 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
     email, 
     displayName, 
     photoURL,
-    createdAt : new Date()
+    createdAt : new Date().getMilliseconds(),
+    level: email == functions.config().admin.email ? 0 : 5
   }
   db.ref('users').child(uid).set(userInfo)
 });
