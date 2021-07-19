@@ -14,6 +14,14 @@
           {{ nav.name }}
         </RouterLink>
       </div>
+      <div class="nav-item">
+        <RouterLink
+          class="nav-link"
+          active-class="active"
+          to="/mypage">
+          음
+        </RouterLink>
+      </div>
     </div>
   </header>
 </template>

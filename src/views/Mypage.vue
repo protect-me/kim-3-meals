@@ -1,0 +1,91 @@
+<template>
+  <div class="container">
+    <div
+      v-if="!fireUser"
+      class="status-block status-login">
+      <div class="notice">
+        <p>구글 계정으로 </p>
+        <p>로그인이 가능합니다:)</p>
+      </div>
+      <button
+        class="btn btn-outline-primary login-btn"
+        :disabled="isProcessing"
+        @click="signInWithGoogle">
+        <Loader
+          v-if="isProcessing"
+          :size="1.5"
+          absolute />
+        <span v-else>구글 로그인</span>
+      </button>
+    </div>
+
+    <div
+      class="status-block status-logout"
+      v-else>
+      <div class="notice">
+        <p>안녕하세요 {{ fireUser.displayName }}세끼님!</p>
+        <p>맛있는 끼니 챙겨드세요:)</p>
+      </div>
+      <button
+        class="btn btn-outline-danger logout-btn"
+        @click="signOut">
+        <span>로그아웃</span>
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex"
+import Loader from "@/components/Loader"
+
+export default {
+  components: {
+    Loader
+  },
+  data() {
+    return {
+      isProcessing: false
+    }
+  },
+  computed: {
+    ...mapState(["fireUser"])
+  },
+  methods: {
+    async signInWithGoogle() {
+      const provider = new this.$firebase.auth.GoogleAuthProvider()
+      this.$firebase.auth().languageCode = 'ko'
+      this.isProcessing = true
+      try {
+        const snapshot = await this.$firebase.auth().signInWithPopup(provider)
+        console.log(snapshot.user);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.isProcessing = false
+      }
+    },
+    signOut() {
+      this.$firebase.auth().signOut()
+      alert("로그아웃 되었습니다:)")
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.container {
+  font-family: 'TmonMonsori', sans-serif;
+  .status-block {
+    text-align: center;
+    .notice {
+      margin: 20px 0;
+    }
+    button {
+      width: 120px;
+      height: 40px;
+      position: relative;
+    }
+  }
+}
+</style>

@@ -5,6 +5,7 @@ export default createStore({
   state: {
     stores: [],
     loading: false,
+    fireUser: null
   },
   mutations: {
     updateState(state, payload) {
@@ -15,9 +16,15 @@ export default createStore({
     resetStores(state) {
       state.stores = []
       state.loading = false
+    },
+    setFireUser(state, payload) {
+      state.fireUser = payload
     }
   },
   actions: {
+    setFireUser({commit}, payload) {
+      commit('setFireUser', payload)
+    },
     async searchStores({state, commit}, payload) {
       if (state.loading) return // loading 중일 경우 return 
 
