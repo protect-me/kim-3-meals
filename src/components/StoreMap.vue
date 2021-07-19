@@ -58,7 +58,7 @@ export default {
       // set store latlng 
       for (var i = 0; i < this.stores.length; i ++) {         
         // 마커 생성
-        const latlng = new kakao.maps.LatLng(this.stores[i].lat, this.stores[i].lng)        
+        const latlng = new kakao.maps.LatLng(this.stores[i].lat, this.stores[i].lng)
         var marker = new kakao.maps.Marker({ // eslint-disable-line no-unused-vars
           map: map, // 마커를 표시할 지도
           position: latlng, // 마커를 표시할 위치
@@ -85,7 +85,6 @@ export default {
         });
 
         var moreInfo = 
-  // <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">
         `
           <div class="store-card-item">
             <div
@@ -170,7 +169,14 @@ export default {
           that.selectedMarker = marker
           customOverlayMore.setMap(map); // 지도에 올림
           marker.overlay = customOverlayMore
+          console.log("marker", marker.getPosition());
+          panTo(map, marker.getPosition())
         };
+      }
+      function panTo(map, latlng) {
+        // 지도 중심을 부드럽게 이동시킵니다
+        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동)
+        map.panTo(latlng);
       }
     }
   }
