@@ -163,18 +163,20 @@ export default {
           if (that.selectedMarker) {
             // 선택되어 있는 마커가 있을 경우
             if (marker.Fb !== that.selectedMarker.Fb) {
-              // 선택되어 있는 마커와 새로 선택된 마커의 상호명이 같을 경우
+              // 선택되어 있는 마커와 새로 선택된 마커의 상호명이 다를 경우
               customOverlay.setMap(map); // 지도에 올림
             }
           } else {
             // 선택되어 있는 마커가 없을 경우
             customOverlay.setMap(map); // 지도에 올림
+            customOverlay.setVisible(true); // 지도에서 보이게 함
           }
         };
       }
       function makeOutListener(map, customOverlay) {
         return function() {
-          customOverlay.setMap(null); // 지도에 제거
+          // customOverlay.setMap(null); // 지도에서 제거
+          customOverlay.setVisible(null); // 지도에서 보이지 않게 함
         };
       }
       function makeOverClickListener(map, marker, customOverlayMore){
