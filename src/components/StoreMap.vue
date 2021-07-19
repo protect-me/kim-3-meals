@@ -129,10 +129,13 @@ export default {
           zIndex: 3
         });
         kakao.maps.event.addListener(map, 'click', function() {
-          // 지도 클릭시 선택되어ㅣ있는 customOverlay 제거
+          // 지도 클릭 시 선택되어 있는 customOverlay 제거
           if (that.selectedMarker) {
             console.log('Map Clicked!');
-            that.selectedMarker.overlay.setMap(null); // 기존 ovelay 제거
+            that.selectedMarker.overlay.setMap(null); // 기존 ovelay 제거            
+            if(that.selectedMarker) {
+              that.selectedMarker = null
+            }
           }
         })
         kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, customOverlay));
