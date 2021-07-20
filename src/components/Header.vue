@@ -123,6 +123,13 @@ header {
     .logo {
       margin: 5px 0;
     }
+    .nav {
+      .nav-item {
+        .nav-link-account {
+          margin-left: 0px;
+        }
+      }
+    }
   }
 }
 </style>
