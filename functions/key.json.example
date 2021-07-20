@@ -1,0 +1,19 @@
+{
+  "type": "",
+  "project_id": "",
+  "private_key_id": "",
+  "private_key": "",
+  "client_email": "",
+  "client_id": "",
+  "auth_uri": "",
+  "token_uri": "",
+  "auth_provider_x509_cert_url": "",
+  "client_x509_cert_url": ""
+}
+
+// key.json 생성
+firebase 콘솔 > 프로젝트 개요 옆 설정 아이콘 > 프로젝트 설정 > 서비스 계정 > Firebase Admin SDK > Node.js > 새 비공개 키 생성
+=> key.json 파일 대체
+
+// Blaze 요금제 구매 후
+$ firebase deploy --only functions
