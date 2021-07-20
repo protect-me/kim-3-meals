@@ -9,9 +9,6 @@ export default createStore({
     user: null,
   },
   getters: {
-    getStoreStatus: function (state) {
-      return state.storeStatus
-    },
     getFireUser: function (state) {
       return state.user
     },
@@ -38,11 +35,9 @@ export default createStore({
   },
   actions: { // dispatch
     setFireUser({commit}, payload) {
-      console.log('dispatch setFireUser');
       commit('setFireUser', payload)
     },
     setUser({commit}, payload) {
-      console.log('dispatch setUser');
       commit('setUser', payload)
     },
     async searchStores({state, commit}, payload) {

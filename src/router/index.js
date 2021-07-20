@@ -11,7 +11,7 @@ function onlyAdmin (to, from, next) {
       alert("CLIENT ACCESS DENIED")
     }
   }
-  
+
   if (!store.getters.getUser) {
     alert("출입 통제 // 관계자 외 출입 금지")
     store.watch(()=> store.getters.getUser, (userInfo) => {
@@ -21,9 +21,6 @@ function onlyAdmin (to, from, next) {
     verifyAdmin(store.getters.getUser.level)
   }
 }
-
-
-
 
 
 const routes = [
