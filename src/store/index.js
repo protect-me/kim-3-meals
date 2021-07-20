@@ -5,9 +5,21 @@ export default createStore({
   state: {
     stores: [],
     loading: false,
-    fireUser: null
+    fireUser: null,
+    user: null,
   },
-  mutations: {
+  getters: {
+    getStoreStatus: function (state) {
+      return state.storeStatus
+    },
+    getFireUser: function (state) {
+      return state.user
+    },
+    getUser: function (state) {
+      return state.user
+    }
+  },
+  mutations: { // commit
     updateState(state, payload) {
       Object.keys(payload).forEach(key => {
         state[key] = payload[key]
@@ -19,11 +31,19 @@ export default createStore({
     },
     setFireUser(state, payload) {
       state.fireUser = payload
+    },
+    setUser(state, payload) {
+      state.user = payload
     }
   },
-  actions: {
+  actions: { // dispatch
     setFireUser({commit}, payload) {
+      console.log('dispatch setFireUser');
       commit('setFireUser', payload)
+    },
+    setUser({commit}, payload) {
+      console.log('dispatch setUser');
+      commit('setUser', payload)
     },
     async searchStores({state, commit}, payload) {
       if (state.loading) return // loading 중일 경우 return 

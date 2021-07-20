@@ -1,5 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import map from '../views/Map.vue'
+import store from "@/store"
+
+function onlyAdmin (to, from, next) {
+  function verifyAdmin(level) {
+    if (level == 0) {
+      alert("ADMIN ACCESS")
+      next()
+    } else {
+      alert("CLIENT ACCESS DENIED")
+    }
+  }
+  
+  if (!store.getters.getUser) {
+    alert("출입 통제 // 관계자 외 출입 금지")
+    store.watch(()=> store.getters.getUser, (userInfo) => {
+      verifyAdmin(userInfo.level)
+    })
+  } else {
+    verifyAdmin(store.getters.getUser.level)
+  }
+}
+
+
+
+
 
 const routes = [
   {
@@ -30,8 +55,9 @@ const routes = [
   {
     path: '/regist',
     name: 'Regist',
-    component: () => import('../views/Regist.vue')
-  }, 
+    beforeEnter: onlyAdmin,
+    component: () => import('../views/Regist.vue'),
+  },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',

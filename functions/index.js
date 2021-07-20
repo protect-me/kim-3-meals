@@ -9,20 +9,26 @@ admin.initializeApp({
 });
 
 const db = admin.database()
+const fdb = admin.firestore()
+
 
 exports.createUser = functions.auth.user().onCreate(async (user) => {
   const { uid, email, displayName, photoURL } = user
+  const time = new Date()
   const userInfo = {
     email, 
     displayName, 
     photoURL,
-    createdAt : new Date().getMilliseconds(),
+    createdAt : time,
     level: email == functions.config().admin.email ? 0 : 5
   }
+  await fdb.collection('users').doc(uid).set(userInfo)
+  userInfo.createdAt = time.getTime()
   db.ref('users').child(uid).set(userInfo)
 });
 
 exports.deleteUser = functions.auth.user().onDelete(async (user) => {
   const { uid } = user
-  db.ref('users').child(uid).remove()
+  await db.ref('users').child(uid).remove()
+  await fdb.collection('users').doc(uid).delete()
 });

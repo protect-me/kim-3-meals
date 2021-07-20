@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <div>
+      {{ user }}
+    </div>
+    
     <div
       v-if="!fireUser"
       class="status-block status-login">
@@ -49,7 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["fireUser"])
+    ...mapState(["fireUser", "user"])
   },
   methods: {
     async signInWithGoogle() {
