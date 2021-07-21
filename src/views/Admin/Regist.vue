@@ -96,7 +96,7 @@ export default {
         addressSigungu: '',
         addressLocal: '',
         lat: '',
-        lng: ''
+        lng: '',
       }
     }
   },
@@ -179,7 +179,9 @@ export default {
 
       try {
         if (!this.updateMode) {
-          this.form.createdAt = Date.now() // update mode가 아닐 경우에만 createdAt 설정
+          // 신규 등록일 경우에만 
+          this.form.createdAt = Date.now()
+          this.form.uid = this.$store.state.fireUser.uid
         }
         this.form.updatedAt = Date.now()
 

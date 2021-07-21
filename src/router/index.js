@@ -4,7 +4,7 @@ import store from "@/store"
 
 function onlyAdmin (to, from, next) {
   function verifyAdmin(level) {
-    if (level == 0) {
+    if (level <= 2) {
       alert("ADMIN ACCESS")
       next()
     } else {

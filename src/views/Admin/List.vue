@@ -128,6 +128,7 @@ export default {
     width: 100%;
     background-color: #fff;
     table {
+      font-size: 14px;
       tbody {
         tr {
           .td-btn {
