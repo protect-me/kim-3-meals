@@ -95,7 +95,7 @@ export default {
     align-items: center;
     background-color: #fff;
     border-radius: 0 0 4px 4px;
-    
+
     .left-side {
       margin-left: 10px;
       .first-line {
@@ -105,15 +105,27 @@ export default {
           font-size: 16px;
           color: $gray-700;
           margin-right: 10px;
+          max-width: 140px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;          
         }
         .subtitle {
           font-size: 12px;
           color: $gray-500;
+          max-width: 100px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
       .address {
         font-size: 14px;
         color: $gray-600;
+        max-width: 240px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     .right-side {

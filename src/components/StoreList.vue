@@ -21,7 +21,9 @@
           :key="index">
           <td>{{ store.name }}</td>
           <td>{{ store.category }}</td>
-          <td>{{ store.address }}</td>
+          <td class="store-address">
+            {{ store.address }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -43,5 +45,22 @@ export default {
 .store-list {
   width: 100%;
   background-color: #fff;
+  table {
+    thead {
+      text-align: center;
+    }
+    tbody {
+      tr {
+        .store-address {
+          max-width: 50%;
+        }
+      }
+    }
+  }
+}
+@include media-breakpoint-down(sm) {
+  .store-list {
+    font-size: 12px;
+  }
 }
 </style>
