@@ -25,7 +25,7 @@
             <label
               class="btn btn-outline-primary"
               for="btnradio1"
-              @click="listBtnClicked">
+              @click="changeResultMode('list')">
               <i
                 class="fa fa-list"
                 aria-hidden="true"></i>
@@ -41,7 +41,7 @@
             <label
               class="btn btn-outline-primary"
               for="btnradio2"
-              @click="cardBtnClicked">
+              @click="changeResultMode('card')">
               <i
                 class="fa fa-th-large"
                 aria-hidden="true"></i>
@@ -58,7 +58,7 @@
             <label
               class="btn btn-outline-primary"
               for="btnradio3"
-              @click="mapBtnClicked">
+              @click="changeResultMode('map')">
               <i
                 class="fa fa-map"
                 aria-hidden="true"></i>
@@ -174,21 +174,13 @@ export default {
       }
       this.$store.dispatch("searchStores", this.form)
     },
-    listBtnClicked() {
-      this.resultMode.list = 'on'
-      this.resultMode.card = 'off'
-      this.resultMode.map = 'off'
+    changeResultMode(changed) {
+      for (const mode in this.resultMode) {
+        (mode == changed) 
+          ? this.resultMode[mode] = 'on'
+          : this.resultMode[mode] = 'off'
+      }
     },
-    cardBtnClicked() {
-      this.resultMode.list = 'off'
-      this.resultMode.card = 'on'
-      this.resultMode.map = 'off'
-    },
-    mapBtnClicked() {
-      this.resultMode.list = 'off'
-      this.resultMode.card = 'off'
-      this.resultMode.map = 'on'
-    }
   }
 }
 </script>
