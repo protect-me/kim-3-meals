@@ -42,8 +42,8 @@ export default createStore({
     },
     async searchStores({state, commit}, payload) {
       if (state.loading) return // loading 중일 경우 return 
-
-      const { keyword, category, resultMode } = payload;
+      
+      const { keyword="", category="카테고리", resultMode="" } = payload;
 
       // mode가 map일 경우, loading을 활성화 시키지 않음으로써
       // kakao map이 re-render되는 것을 방지하고자 함
@@ -87,7 +87,7 @@ export default createStore({
       
       stores = stores.map(value => {
         const item = value.data()
-        // "?v=", "&t=" 두 문자열 사이의 문자열을 추출
+        // "?v=", 뒤 11자리 video ID 추출
         const subIndex = item.url.indexOf("?v=")
         const videoId = item.url.substring(subIndex+3, subIndex+14)
         const thumbnail = `https://img.youtube.com/vi/${videoId}/0.jpg`

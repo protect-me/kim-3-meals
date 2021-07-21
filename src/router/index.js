@@ -4,7 +4,7 @@ import store from "@/store"
 
 function onlyAdmin (to, from, next) {
   function verifyAdmin(level) {
-    if (level == 0) {
+    if (level <= 2) {
       alert("ADMIN ACCESS")
       next()
     } else {
@@ -21,7 +21,6 @@ function onlyAdmin (to, from, next) {
     verifyAdmin(store.getters.getUser.level)
   }
 }
-
 
 const routes = [
   {
@@ -49,11 +48,29 @@ const routes = [
     name: 'Mypage',
     component: () => import('../views/Mypage.vue')
   },
+  // {
+  //   path: '/regist',
+  //   name: 'Regist',
+  //   beforeEnter: onlyAdmin,
+  //   component: () => import('../views/Regist.vue'),
+  // },
   {
-    path: '/regist',
-    name: 'Regist',
+    path: '/admin',
+    name: 'Admin',
     beforeEnter: onlyAdmin,
-    component: () => import('../views/Regist.vue'),
+    component: () => import('../views/Admin/Index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'List',
+        component: () => import('../views/Admin/List.vue')
+      },
+      {
+        path: 'regist',
+        name: 'Regist',
+        component: () => import('../views/Admin/Regist.vue')
+      },
+    ]
   },
   {
     path: '/:pathMatch(.*)*',

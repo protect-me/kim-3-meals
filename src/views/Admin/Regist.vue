@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div class="title">
-      신규 상호 등록
+      <span v-if="!updateMode">신규 상호 등록</span>
+      <span v-else>기존 상호 수정</span>
     </div>
   
     <div class="input-group mb-3">
@@ -75,8 +76,13 @@ export default {
   components: {
     VueDaumPostcode,
   },
+  mounted() {
+    this.checkStoreId()
+  },
   data() {
     return {
+      updateMode: false,
+      updateStoreId: '',
       isProcessing: false,
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '포차/가맥', '기타'],
       vueDaumPostcodeInput: null,
@@ -90,11 +96,32 @@ export default {
         addressSigungu: '',
         addressLocal: '',
         lat: '',
-        lng: ''
+        lng: '',
       }
     }
   },
   methods: {
+    async checkStoreId() {
+      // 넘긴 params가 없어도 빈 객체를 들고 있기 때문에 빈 객체인지 확인
+      if (Object.keys(this.$route.params).length !== 0) {
+        this.updateMode = true
+        this.updateStoreId = this.$route.params.storeId
+        const store = await this.$firebase.firestore().collection("store").doc(this.updateStoreId).get()
+        const storeData = store.data()
+        this.form = {
+          name: storeData.name,
+          url: storeData.url,
+          category: storeData.category,
+          tag: storeData.tag,
+          address: storeData.address,
+          addressJibun: storeData.addressJibun,
+          addressSigungu: storeData.addressSigungu,
+          addressLocal: storeData.addressLocal,
+          lat: storeData.lat,
+          lng: storeData.lng,
+        }
+      }
+    },
     addressSelected(selectedAddress) {
       this.form.address = selectedAddress.roadAddress
       this.form.addressSigungu = selectedAddress.sigungu
@@ -151,19 +178,30 @@ export default {
       }
 
       try {
-        this.form.createdAt = Date.now()
+        if (!this.updateMode) {
+          // 신규 등록일 경우에만 
+          this.form.createdAt = Date.now()
+          this.form.uid = this.$store.state.fireUser.uid
+        }
         this.form.updatedAt = Date.now()
-  
-        await this.$firebase.firestore().collection("store").add(this.form)
-        alert("성공적으로 등록되었습니다.")
-        this.initForm() // form 초기화
 
+        if (!this.updateMode) {
+          // 신규 등록
+          await this.$firebase.firestore().collection("store").add(this.form)
+          alert("성공적으로 등록되었습니다.")
+        } else {
+          // 기존 수정
+          await this.$firebase.firestore().collection("store").doc(this.updateStoreId).update(this.form)
+          alert("성공적으로 수정되었습니다.")   
+        }
+        this.initForm() // form 초기화
       } catch (err) {
         alert(err.message)
         console.log(err);
       } finally {
         this.isProcessing = false
-        window.scrollTo(0,0);
+        // window.scrollTo(0,0); // scroll to top
+        this.$router.push({name:"List"})
       }
     },
     initForm() {

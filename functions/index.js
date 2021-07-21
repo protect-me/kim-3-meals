@@ -22,9 +22,9 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
     createdAt : time,
     level: email == functions.config().admin.email ? 0 : 5
   }
-  await fdb.collection('users').doc(uid).set(userInfo)
+  await fdb.collection('users').doc(uid).set(userInfo) // set user at Firestore
   userInfo.createdAt = time.getTime()
-  db.ref('users').child(uid).set(userInfo)
+  db.ref('users').child(uid).set(userInfo) // set user at RealTime Database
 });
 
 exports.deleteUser = functions.auth.user().onDelete(async (user) => {
