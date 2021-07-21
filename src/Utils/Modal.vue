@@ -25,7 +25,7 @@
             <slot name="footer">
               <button
                 class="btn btn-outline-danger modal-close-button"
-                @click="$emit('close')">
+                @click="closeBtnClicked">
                 닫기
               </button>
             </slot>
@@ -51,7 +51,12 @@ export default {
       type: Boolean,
       defualt: false,
     },
-  }
+  },
+  methods: {
+    closeBtnClicked() {
+      this.$emit('close')
+    }
+  },
 }
 </script>
 

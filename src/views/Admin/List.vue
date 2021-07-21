@@ -106,7 +106,7 @@ export default {
       this.$router.push({name: 'Regist', params: { storeId: store.id }})
     },
     async deleteStore(store) {
-      if (confirm("삭세 후 다시 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
+      if (confirm("삭제 후 다시 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
         try {
           await this.$firebase.firestore().collection("store").doc(store.id).delete()
           alert("성공적으로 삭제되었습니다!")

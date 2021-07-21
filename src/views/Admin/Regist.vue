@@ -196,8 +196,7 @@ export default {
         }
         this.initForm() // form 초기화
       } catch (err) {
-        alert(err.message)
-        console.log(err);
+        alert("등록에 실패했습니다.", err.message)
       } finally {
         this.isProcessing = false
         // window.scrollTo(0,0); // scroll to top
