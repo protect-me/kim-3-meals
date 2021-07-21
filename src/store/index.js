@@ -42,8 +42,8 @@ export default createStore({
     },
     async searchStores({state, commit}, payload) {
       if (state.loading) return // loading 중일 경우 return 
-
-      const { keyword, category, resultMode } = payload;
+      
+      const { keyword="", category="카테고리", resultMode="" } = payload;
 
       // mode가 map일 경우, loading을 활성화 시키지 않음으로써
       // kakao map이 re-render되는 것을 방지하고자 함
