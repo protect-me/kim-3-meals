@@ -48,6 +48,15 @@
         <span>로그아웃</span>
       </button>
     </div>
+    
+    <div class="admin-area">
+      <button
+        v-if="user && user.level <= 2"
+        class="btn btn-danger admin-btn"
+        @click="moveToAdmin">
+        Admin
+      </button>
+    </div>
   </div>
 </template>
 
@@ -84,6 +93,9 @@ export default {
     signOut() {
       this.$firebase.auth().signOut()
       alert("로그아웃 되었습니다:)")
+    },
+    moveToAdmin() {
+      this.$router.push({name:"List"})
     }
   }
 }
@@ -92,6 +104,9 @@ export default {
 <style lang="scss" scoped>
 .container {
   font-family: 'TmonMonsori', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   .status-block {
     margin-top: 20px;
     height: 250px;
@@ -125,6 +140,14 @@ export default {
       width: 120px;
       height: 40px;
       position: relative;
+    }
+  }
+  .admin-area {
+    margin-top: 20px;
+    text-align: center;
+    button {
+      width: 50%;
+      height: 40px;
     }
   }
 }
