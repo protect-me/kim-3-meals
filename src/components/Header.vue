@@ -57,16 +57,12 @@ export default {
     return {
       navigations: [
         {
-          name: "지도",
+          name: "검색",
           href: "/",
         },
         {
-          name: "검색",
-          href: "/search",
-        },
-        {
-          name: "정보",
-          href: "/info",
+          name: "요청",
+          href: "/request",
         },
         {
           name: "소개",
