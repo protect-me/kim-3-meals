@@ -24,9 +24,9 @@
             class="modal-footer">
             <slot name="footer">
               <button
-                class="modal-default-button"
+                class="btn btn-outline-danger modal-close-button"
                 @click="$emit('close')">
-                OK
+                닫기
               </button>
             </slot>
           </div>
@@ -72,15 +72,14 @@ export default {
     .modal-container {
       width: 80vw;
       min-width: 350px;
-      max-height: 80vh;
       margin: 0px auto;
       background-color: #fff;
       border-radius: 2px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
       font-family: Helvetica, Arial, sans-serif;
+      justify-content: center;
       .modal-header {
-        color: #42b983;
       }
       .modal-body {
         height: 520px;
@@ -88,9 +87,7 @@ export default {
         overflow: scroll;
       }
       .modal-footer {
-        display: flex;
-        justify-content: space-between;
-        .modal-default-button {
+        .modal-close-button {
           float: right;
         }
       }
