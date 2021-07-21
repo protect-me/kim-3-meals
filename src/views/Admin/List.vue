@@ -57,23 +57,50 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
 
 export default {
-  computed: {
-    ...mapState(["stores"])
-  },
   data() {
     return {
-      form: {}
+      unsubscribe: null,
+      form: {},
+      stores: []
     }
   },
-  mounted() {
-    this.readData()
+  created() {
+    this.subscribe()
+  },
+  unmounted() {
+    if (this.unsubscribe) this.unsubscribe()
   },
   methods: {
-    readData() {
-      this.$store.dispatch("searchStores", this.form)
+    subscribe() {
+    this.unsubscribe = this.$firebase.firestore().collection("store").onSnapshot((snapshot) => {
+      if (snapshot.empty) {
+        this.stores = []
+        return
+      }
+      this.stores = snapshot.docs.map(value => {
+        const item = value.data()
+        const subIndex = item.url.indexOf("?v=")
+        const videoId = item.url.substring(subIndex+3, subIndex+14)
+        const thumbnail = `https://img.youtube.com/vi/${videoId}/0.jpg`
+        return {
+          id: value.id,
+          name: item.name,
+          category: item.category,
+          address: item.address,
+          addressJibun: item.addressJibun,
+          addressSigungu: item.addressSigungu,
+          addressLocal: item.addressLocal,
+          lat: item.lat,
+          lng: item.lng,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          url: item.url,
+          thumbnail: thumbnail
+        }
+      })
+      })
     },
     updateStore(store) {
       this.$router.push({name: 'Regist', params: { storeId: store.id }})
