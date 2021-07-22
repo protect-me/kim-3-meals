@@ -222,7 +222,8 @@ export default {
           comment: item.comment,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
-          likeCount: item.likeCount
+          likeCount: item.likeCount,
+          likeUserList: item.likeUserList
         }
       })
       })
@@ -273,6 +274,7 @@ export default {
         return
       }
       this.form.likeCount = 0
+      this.form.likeUserList = []
       const createdAt = new Date()
       this.form.createdAt = createdAt
       const id = createdAt.getTime().toString()

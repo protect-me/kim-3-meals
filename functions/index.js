@@ -20,6 +20,7 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
     email, 
     displayName, 
     photoURL,
+    likeRequestList: [],
     createdAt : time,
     level: email == functions.config().admin.email ? 0 : 5
   }

@@ -30,16 +30,21 @@
         </div>
       </div>
 
-      <div class="like icon-wrapper">
+      <div
+        class="like icon-wrapper"
+        @click="likeBtnClicked">
         <div class="icon">
           <i
-            v-if="userLike"
+            v-if="liked"
             class="fa fa-thumbs-up"
             aria-hidden="true"></i>
           <i
             v-else
             class="fa fa-thumbs-o-up"
             aria-hidden="true"></i>
+        </div>
+        <div class="count">
+          {{ request.likeCount }}
         </div>
       </div>
     </div>
@@ -56,6 +61,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   props: {
     request: {
@@ -63,12 +70,41 @@ export default {
       default: () => ({})
     }
   },
+  computed: {
+    ...mapState(["fireUser", "user"]),
+    liked() {
+      if (!this.fireUser) { return false }
+      return this.request.likeUserList.includes(this.fireUser.uid)
+    },
+  },
   data() {
     return {
-      userLike: false,
     }
   },
   methods: {
+    async likeBtnClicked() {
+      const refRequest = this.$firebase.firestore().collection("requests").doc(this.request.id)
+      const refUser = this.$firebase.firestore().collection("users").doc(this.fireUser.uid)
+      try {
+        // await ref.update({likeCount : this.$firebase.firestore.FieldValue.increment(1)})
+        const batch = await this.$firebase.firestore().batch()
+        if (this.liked) {
+          // like 해제 로직
+          batch.update(refRequest, {likeCount : this.$firebase.firestore.FieldValue.increment(-1)})
+          batch.update(refRequest, {likeUserList : this.$firebase.firestore.FieldValue.arrayRemove(this.fireUser.uid)})
+          batch.update(refUser, {likeRequestList : this.$firebase.firestore.FieldValue.arrayRemove(this.request.id)})          
+        } else {
+          // like 로직
+          batch.update(refRequest, {likeCount : this.$firebase.firestore.FieldValue.increment(1)})
+          batch.update(refRequest, {likeUserList : this.$firebase.firestore.FieldValue.arrayUnion(this.fireUser.uid)})
+          batch.update(refUser, {likeRequestList : this.$firebase.firestore.FieldValue.arrayUnion(this.request.id)})          
+        }
+        await batch.commit()
+      } catch(err) {
+        alert("'좋아요'를 하는 도중 에러가 발생했습니다.", err)
+        console.log(err);
+      }
+    }
   },
 }
 </script>
@@ -91,7 +127,7 @@ export default {
     width: 240px;
     .header {
       display: flex;
-      margin: 5px 0;
+      margin: 4px 0;
       height: 20px;
       .category {
         font-size: 10px;
@@ -102,7 +138,7 @@ export default {
       }
     }
     .body {
-      margin: 10px 0;
+      margin: 8px 0;
       height: 40px;
       .name {
         font-size: 16px;
@@ -112,7 +148,7 @@ export default {
       }      
     }
     .footer {
-      margin: 5px 0;
+      margin: 4px 0;
       height: 50px;
       display: flex;
       align-content: flex-end;
@@ -127,18 +163,24 @@ export default {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    padding-left: 20px;
+    padding: 10px 10px 20px 20px;
     .icon-wrapper {
       cursor: pointer;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       text-align: center;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
       .icon {
         padding-top: 4px;
+      }
+      .count {
+        font-size: 10px;
+        position: absolute;
+        bottom: -10px;
       }
     }
     .icon-wrapper:hover {
