@@ -69,7 +69,8 @@
         <RequestItem 
           v-for="(request, index) in requests"
           :key="index"
-          :request="request" />
+          :request="request" 
+          @editModeOn="editModeOn" />
       </div>
     </div>
     
@@ -141,12 +142,30 @@
           </div>
         </div>
         <div class="input-btn">
-          <button
-            class="btn btn-primary"
-            @click="apply">
-            출장<br />
-            요청
-          </button>
+          <div
+            v-if="!editMode"
+            class="btn-wrapper">
+            <button
+              class="btn btn-primary regist-btn"              
+              @click="apply">
+              출장<br />
+              요청
+            </button>
+          </div>
+          <div
+            v-else
+            class="btn-wrapper">
+            <button
+              class="btn btn-primary btn-half edit-btn"
+              @click="editApply">
+              수정
+            </button>
+            <button
+              class="btn btn-danger btn-half cancle-btn"
+              @click="editCancle">
+              취소
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -211,10 +230,18 @@ export default {
         }
         
         this.requests.sort((a, b) => {
-          if (this.orderByOption == 'asc') {
-            return a[this.orderBy] - b[this.orderBy]
+          if (this.orderBy == "new" || this.orderBy == 'old') {
+            if (this.orderByOption == 'asc') {
+              return a[this.orderBy.seconds] - b[this.orderBy.seconds]
+            } else {
+              return b[this.orderBy.seconds] - a[this.orderBy.seconds]
+            }
           } else {
-            return b[this.orderBy] - a[this.orderBy]
+            if (this.orderByOption == 'asc') {
+              return a[this.orderBy] - b[this.orderBy]
+            } else {
+              return b[this.orderBy] - a[this.orderBy]
+            }
           }
         })
       }
@@ -224,6 +251,8 @@ export default {
     return {
       showModal: false,
       isProcessing: false,
+      editMode: false,
+      editRequest: {},
       requests: [],
       resultMode: {
         new: "on",
@@ -234,15 +263,33 @@ export default {
       orderByOption: 'desc',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '포차/가맥', '기타'],
       form: {
+        id: '',
+        userName: '',
+        uid: '',
         name: '',
         category: '카테고리',
-        comment: '',
         address: '',
+        comment: '',
+        createdAt: '',
+        updatedAt: '',
+        likeCount: 0,
+        likeUserList: []
       }
     }
   },
   methods: {
-    subscribe() {    
+    editModeOn (request) {
+      this.editMode = true
+      this.form = request
+    },
+    editApply() {
+      this.apply()      
+    },
+    editCancle() {
+      this.editMode = false
+      this.initForm()
+    },
+    subscribe() {
       this.unsubscribe = this.$firebase.firestore().collection("requests").orderBy(this.orderBy, this.orderByOption).onSnapshot((snapshot) => {
       if (snapshot.empty) {
         this.requests = []
@@ -253,11 +300,12 @@ export default {
         return {
           id: value.id,
           userName: item.userName,
+          uid: item.uid,
           name: item.name,
           category: item.category,
           address: item.address,
           comment: item.comment,
-          createdAt: item.createdAt.seconds,
+          createdAt: item.createdAt,
           updatedAt: item.updatedAt,
           likeCount: item.likeCount,
           likeUserList: item.likeUserList
@@ -310,30 +358,43 @@ export default {
         this.isProcessing = false
         return
       }
-      this.form.likeCount = 0
-      this.form.likeUserList = []
-      const createdAt = new Date()
-      this.form.createdAt = createdAt
-      const id = createdAt.getTime().toString()
 
       try {
-        await this.$firebase.firestore().collection("requests").doc(id).set(this.form)
+        if (!this.editMode) { // 등록 모드
+          const createdAt = new Date()
+          this.form.createdAt = createdAt
+          this.form.updatedAt = createdAt
+          const id = createdAt.getTime().toString()
+          await this.$firebase.firestore().collection("requests").doc(id).set(this.form)
+        } else { // 수정 모드
+          const id = this.form.id
+          const updatedAt = new Date()
+          this.form.updatedAt = updatedAt
+          await this.$firebase.firestore().collection("requests").doc(id).update(this.form)
+        }
         this.initForm() // form 초기화
+        this.editMode = false // editMode 초기화
         alert("성공적으로 등록되었습니다.")
       } catch(err) {
-        alert("등록에 실패했습니다.", err.message)
+        alert("등록에 실패했습니다.", err)
+        console.log(err);
       } finally {
         this.isProcessing = false
       }
     },
     initForm(){
       this.form = {
+        id: '',
         name: '',
         category: '카테고리',
         comment: '',
         address: '',
         uid: '',
         userName: '',
+        createdAt: '',
+        updatedAt: '',
+        likeCount: 0,
+        likeUserList: []
       }
     }
   }
@@ -365,7 +426,6 @@ export default {
       }
     }
   }
-  /* 94 + 58 + 10 + 168 330*/
   .request-body {
     min-height: 200px;
     max-height: calc(100vh - 350px);
@@ -408,9 +468,17 @@ export default {
           border-radius: 5px;
         }
       }
-      button { 
+      .btn-wrapper {
         width: 80px;
         height: 100%;
+        .regist-btn { 
+          width: 100%;
+          height: 100%;
+        }
+        .btn-half {
+          width: 100%;
+          height: 50%;
+        }
       }
     }
   }

@@ -22,14 +22,25 @@
     </div>
 
     <div class="right-area">
-      <div class="more icon-wrapper">
-        <div class="icon">
+      <div
+        v-if="isThisUsersRequest || fireUser.level == 0"
+        class="more icon-wrapper">
+        <div
+          class="icon"
+          @click="editBtnClicked">
           <i
-            class="fa fa-ellipsis-v"
+            class="fa fa-pencil"
+            aria-hidden="true"></i>
+        </div>
+        <div
+          class="icon"
+          @click="deleteBtnClicked">
+          <i
+            class="fa fa-trash"
             aria-hidden="true"></i>
         </div>
       </div>
-
+      
       <div
         class="like icon-wrapper"
         @click="likeBtnClicked">
@@ -49,15 +60,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <i
-      v-if="userDislike"
-      class="fa fa-thumbs-down"
-      aria-hidden="true"></i>
-    <i
-      v-else
-      class="fa fa-thumbs-o-down"
-      aria-hidden="true"></i> -->
 </template>
 
 <script>
@@ -76,12 +78,30 @@ export default {
       if (!this.fireUser) { return false }
       return this.request.likeUserList.includes(this.fireUser.uid)
     },
+    isThisUsersRequest() {
+      if (!this.fireUser) { return false }
+      return this.request.uid == this.fireUser.uid
+    }
   },
   data() {
     return {
     }
   },
   methods: {
+    editBtnClicked() {
+      const cloneRequest = Object.assign({}, this.request);
+      this.$emit("editModeOn", cloneRequest)
+    },
+    async deleteBtnClicked() {
+      if (confirm("삭제 후 다시 복구할 수 없습니다. 그래도 삭제하시겠습니까?")) {
+        try {
+          await this.$firebase.firestore().collection("requests").doc(this.request.id).delete()
+          alert("성공적으로 삭제되었습니다!")
+        } catch(err) {
+          console.log("삭제를 하는 도중 에러가 발생했습니다.", err);
+        }
+      }
+    },
     async likeBtnClicked() {
       const refRequest = this.$firebase.firestore().collection("requests").doc(this.request.id)
       const refUser = this.$firebase.firestore().collection("users").doc(this.fireUser.uid)
@@ -160,7 +180,7 @@ export default {
   .right-area {
     width: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: column;
     padding: 10px 10px 20px 20px;
@@ -175,7 +195,11 @@ export default {
       align-items: center;
       position: relative;
       .icon {
-        padding-top: 4px;
+        padding: 4px 7px;
+        border-radius: 15px;
+      }
+      .icon:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       }
       .count {
         font-size: 10px;
@@ -183,8 +207,12 @@ export default {
         bottom: -10px;
       }
     }
-    .icon-wrapper:hover {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    .icon-wrapper.more {
+      flex-direction: column;
+      border-radius: 15px;
+      height: 60px;
+      margin-top: -20px;
+      margin-bottom: 20px;
     }
   }
 }
