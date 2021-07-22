@@ -70,7 +70,8 @@
           v-for="(request, index) in requests"
           :key="index"
           :request="request" 
-          @editModeOn="editModeOn" />
+          @editModeOn="editModeOn"
+          @requestDeleted="editCancle" />
       </div>
     </div>
     
@@ -127,8 +128,12 @@
             <input
               v-model="form.comment"
               type="text"
-              class="form-control"
-              placeholder="코멘트(100자 이하, 추천 메뉴/사유 등)" />
+              class="form-control input-comment"
+              maxlength="50"
+              placeholder="코멘트(50자 이하, 추천 메뉴/사유 등)" />
+            <div class="text-limit">
+              {{ form.comment.length }} / 50
+            </div>            
           </div>
 
           <div class="input-group mb-1 addressInput">
@@ -283,7 +288,7 @@ export default {
       this.form = request
     },
     editApply() {
-      this.apply()      
+      this.apply()
     },
     editCancle() {
       this.editMode = false
@@ -457,6 +462,21 @@ export default {
       .input-wrapper {
         width: calc(100% - 90px);
         margin-right: 10px;
+        .input-group{
+          position: relative;
+          .input-comment {
+            width: 50px;
+          }
+          .text-limit {
+            font-size: 10px;
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            z-index: 3;
+            color: $gray-600;
+            -webkit-text-stroke: 0.5px #fff;
+          }
+        }
         .notice-wrapper {
           width: 100%;
           height: 100%;
