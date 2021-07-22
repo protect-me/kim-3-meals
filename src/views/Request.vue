@@ -183,7 +183,42 @@ export default {
     if (this.unsubscribe) this.unsubscribe()
   },
   computed: {
-    ...mapState(["fireUser", "user"])
+    ...mapState(["fireUser", "user"]),
+  },
+  watch: {
+    resultMode:{
+      deep: true,
+      handler() {
+        let currentMode = ''
+        for (const mode in this.resultMode) {
+          if (this.resultMode[mode] == "on") {
+            currentMode = mode
+          }
+        }
+        switch (currentMode) {
+          case "new":
+            this.orderBy = 'createdAt'
+            this.orderByOption = 'desc'
+            break;
+          case "old":
+            this.orderBy = 'createdAt'
+            this.orderByOption = 'asc'
+            break;
+          case "like":
+            this.orderBy = 'likeCount'
+            this.orderByOption = 'desc'
+            break;
+        }
+        
+        this.requests.sort((a, b) => {
+          if (this.orderByOption == 'asc') {
+            return a[this.orderBy] - b[this.orderBy]
+          } else {
+            return b[this.orderBy] - a[this.orderBy]
+          }
+        })
+      }
+    }
   },
   data() {
     return {
@@ -195,6 +230,8 @@ export default {
         old: "off",
         like : "off",
       },
+      orderBy: 'likeCount',
+      orderByOption: 'desc',
       categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '포차/가맥', '기타'],
       form: {
         name: '',
@@ -205,8 +242,8 @@ export default {
     }
   },
   methods: {
-    subscribe() {
-    this.unsubscribe = this.$firebase.firestore().collection("requests").onSnapshot((snapshot) => {
+    subscribe() {    
+      this.unsubscribe = this.$firebase.firestore().collection("requests").orderBy(this.orderBy, this.orderByOption).onSnapshot((snapshot) => {
       if (snapshot.empty) {
         this.requests = []
         return
@@ -220,7 +257,7 @@ export default {
           category: item.category,
           address: item.address,
           comment: item.comment,
-          createdAt: item.createdAt,
+          createdAt: item.createdAt.seconds,
           updatedAt: item.updatedAt,
           likeCount: item.likeCount,
           likeUserList: item.likeUserList
