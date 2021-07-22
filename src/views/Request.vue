@@ -222,6 +222,7 @@ export default {
           comment: item.comment,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
+          likeCount: item.likeCount
         }
       })
       })
@@ -271,9 +272,13 @@ export default {
         this.isProcessing = false
         return
       }
+      this.form.likeCount = 0
+      const createdAt = new Date()
+      this.form.createdAt = createdAt
+      const id = createdAt.getTime().toString()
 
       try {
-        await this.$firebase.firestore().collection("requests").add(this.form)
+        await this.$firebase.firestore().collection("requests").doc(id).set(this.form)
         this.initForm() // form 초기화
         alert("성공적으로 등록되었습니다.")
       } catch(err) {
