@@ -2,7 +2,7 @@
   <div class="container">
     <div class="request-header">
       <div class="title">
-        맛집 출장 요청
+        출장 요청
       </div>
       <div class="result-mode">
         <div
@@ -56,8 +56,20 @@
     </div>
 
     <div class="request-body">
-      <div>
-        리스트
+      <div
+        v-if="requests && requests.length == 0"
+        class="request-list no-data">
+        <div class="notice">
+          등록된 맛집 출장 요청이 없습니다 :(
+        </div>
+      </div>
+      <div
+        v-else
+        class="request-list">
+        <RequestItem 
+          v-for="(request, index) in requests"
+          :key="index"
+          :request="request" />
       </div>
     </div>
     
@@ -156,11 +168,13 @@
 import { mapState } from "vuex"
 import { VueDaumPostcode } from "vue-daum-postcode"
 import Modal from "@/Utils/Modal"
+import RequestItem from "@/components/RequestItem"
 
 export default {
   components: {
+    VueDaumPostcode,
     Modal,
-    VueDaumPostcode
+    RequestItem
   },
   created() {
     this.subscribe()
@@ -205,6 +219,7 @@ export default {
           name: item.name,
           category: item.category,
           address: item.address,
+          comment: item.comment,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
         }
@@ -250,7 +265,7 @@ export default {
       }
       if (this.fireUser && this.fireUser.uid && this.fireUser.displayName) {
         this.form.uid = this.fireUser.uid
-        this.form.displayName = this.fireUser.displayName
+        this.form.userName = this.fireUser.displayName
       } else {
         alert("로그인 정보를 확인해주세요")
         this.isProcessing = false
@@ -274,7 +289,7 @@ export default {
         comment: '',
         address: '',
         uid: '',
-        displayName: '',
+        userName: '',
       }
     }
   }
@@ -306,6 +321,32 @@ export default {
       }
     }
   }
+  /* 94 + 58 + 10 + 168 330*/
+  .request-body {
+    min-height: 200px;
+    max-height: calc(100vh - 350px);
+    overflow: scroll;
+    background-color: $gray-200;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    .request-list {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .request-list.no-data {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $gray-600;
+      .notice {
+        padding-top: 90px;
+      }
+    }
+  }
   .request-input {
     .input-content {
       display: flex;
@@ -330,5 +371,4 @@ export default {
     }
   }
 }
-
 </style>
