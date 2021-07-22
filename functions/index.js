@@ -12,6 +12,7 @@ const db = admin.database()
 const fdb = admin.firestore()
 
 
+// Save User Info in Firestore & Realtime Database
 exports.createUser = functions.auth.user().onCreate(async (user) => {
   const { uid, email, displayName, photoURL } = user
   const time = new Date()
@@ -32,3 +33,29 @@ exports.deleteUser = functions.auth.user().onDelete(async (user) => {
   await db.ref('users').child(uid).remove()
   await fdb.collection('users').doc(uid).delete()
 });
+
+// Request(출장 요청) Count
+exports.incrementRequestCount = functions.firestore
+  .document("requests/{rid}")
+  .onCreate(async (snap, context) => { // eslint-disable-line no-unused-vars
+    try {
+      await fdb
+        .collection("meta")
+        .doc("requests")
+        .update("count", admin.firestore.FieldValue.increment(1))
+    } catch (e) {
+      await fdb
+        .collection("meta")
+        .doc("requests")
+        .set({ count: 1 })
+    }
+  })
+
+exports.decrementRequestCount = functions.firestore
+  .document("requests/{bid}")
+  .onDelete(async (snap, context) => { // eslint-disable-line no-unused-vars
+    await fdb
+      .collection("meta")
+      .doc("requests")
+      .update("count", admin.firestore.FieldValue.increment(-1))
+  })
