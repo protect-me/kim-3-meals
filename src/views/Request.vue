@@ -339,6 +339,7 @@ export default {
       this.showModal = false
     },
     async apply() {
+      if (this.isProcessing) return      
       this.isProcessing = true
       if (!this.form.name) {
         alert("상호명을 확인해주세요") 
@@ -352,6 +353,11 @@ export default {
       }
       if (!this.form.address) {
         alert("주소를 확인해주세요")
+        this.isProcessing = false
+        return
+      }
+      if (this.form.comment.length > 50) {
+        alert("코멘트 길이는 최대 50자 입니다.")
         this.isProcessing = false
         return
       }
