@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import map from '../views/Map.vue'
 import store from "@/store"
 
 function onlyAdmin (to, from, next) {
@@ -25,18 +24,13 @@ function onlyAdmin (to, from, next) {
 const routes = [
   {
     path: '/',
-    name: 'Map',
-    component: map
-  },
-  {
-    path: '/search',
     name: 'Search',
     component: () => import('../views/Search.vue')
   },
   {
-    path: '/info',
-    name: 'Info',
-    component: () => import('../views/Info.vue')
+    path: '/request',
+    name: 'Request',
+    component: () => import('../views/Request.vue')
   },
   {
     path: '/about',

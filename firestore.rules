@@ -13,5 +13,11 @@ service cloud.firestore {
       allow create: if approveLevel(0);
       allow update, delete: if approveLevel(0) || resource.data.uid == request.auth.uid;
     }
+    match /requests/{requestId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update : if request.auth != null; // To Do
+      allow delete : if approveLevel(0) || (request.auth != null && resource.data.uid == request.auth.uid)
+    }
   }
 }
