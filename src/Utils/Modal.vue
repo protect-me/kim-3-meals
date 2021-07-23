@@ -52,6 +52,7 @@ export default {
       defualt: false,
     },
   },
+  emits: ["close"],
   methods: {
     closeBtnClicked() {
       this.$emit('close')

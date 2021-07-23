@@ -24,6 +24,11 @@ export default {
     window.kakao && window.kakao.maps
       ? this.initMap()
       : this.addKakaoMapScript();
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize);
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.handleResize);
   },
   watch: {
     stores(nv, ov) {
@@ -35,6 +40,25 @@ export default {
     }
   },
   methods: {
+    handleResize(event) {
+      console.log(event, window.innerWidth, window.innerHeight);
+      
+      let that = this
+      // const w = window.innerWidth;
+      const h = window.innerHeight;
+      const calcH = (h - 315) + 'px';
+
+      function resizeMap() {
+        var mapContainer = document.getElementById('map');
+        // mapContainer.style.width = '650px';
+        mapContainer.style.height = calcH;
+      }
+      function relayout() {
+        that.map.relayout();
+      }
+      resizeMap()
+      relayout()
+    },
     addKakaoMapScript() {
       const script = document.createElement("script");
       /* global kakao */
@@ -211,9 +235,7 @@ export default {
 .map {
   display: block;
   width: 100%;
-  height: 500px; 
-  /* 100vh에서 빼는 header 부분을 빼는 식으로 설정해야겠다. 
-  media에 따라서 달라지는 input 부분도 고려해야함 */
+  min-height: 300px;
 }
 .customoverlay {
   position:relative;bottom:0px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;

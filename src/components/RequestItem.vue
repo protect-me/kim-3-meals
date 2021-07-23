@@ -72,6 +72,7 @@ export default {
       default: () => ({})
     }
   },
+  emits: ["editModeOn", "requestDeleted"],
   computed: {
     ...mapState(["fireUser", "user"]),
     liked() {
