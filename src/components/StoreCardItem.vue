@@ -81,7 +81,8 @@ export default {
   .thumbnail {
     $width: 300px;
     width: $width;
-    height: $width * 9 / 16;
+    /* height: $width * 9 / 16; */
+    height: $width * 9 * 0.0625;
     border-radius: 4px 4px 0 0;
     background-color: $gray-400;
     background-size: cover;

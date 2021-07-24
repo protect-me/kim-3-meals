@@ -376,6 +376,7 @@ export default {
           this.form.createdAt = createdAt
           this.form.updatedAt = createdAt
           const id = createdAt.getTime().toString()
+          this.form.id = id          
           await this.$firebase.firestore().collection("requests").doc(id).set(this.form)
         } else { // 수정 모드
           const id = this.form.id
