@@ -3,7 +3,11 @@
   <RouterLink
     to="/"
     class="logo">
-    ㄱㅅㅇㅅㄲ
+    <span class="normal">
+      ㄱㅅㅇㅅㄲ
+    </span>
+    <span class="hover">
+    </span>
   </RouterLink>
 </template>
 
@@ -20,6 +24,12 @@
   &:hover {
     color: $white;
     background-color: $primary;
+  }
+  &:hover .normal {
+    display: none;
+  }
+  &:hover .hover:before {
+    content:"김사원세끼"
   }
 }
 </style>
