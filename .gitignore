@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+# env
+.env
 
 # local env files
 .env.local
@@ -24,4 +26,5 @@ pnpm-debug.log*
 
 # firebase
 .firebaserc
-firebaseConfig.js
+# firebaseConfig.js
+

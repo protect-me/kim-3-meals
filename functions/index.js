@@ -1,7 +1,9 @@
 const functions = require('firebase-functions');
 // firebase 콘솔 > 프로젝트 개요 옆 설정 아이콘 > 프로젝트 설정 > 서비스 계정 > Firebase Admin SDK > Node.js
 var admin = require("firebase-admin");
-var serviceAccount = require("./key.json");
+// var serviceAccount = require("./key.json");
+var serviceAccountJS = require("./key.js");
+var serviceAccount = JSON.stringify(serviceAccountJS);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
