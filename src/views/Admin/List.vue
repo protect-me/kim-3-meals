@@ -1,5 +1,12 @@
 <template>
   <div class="container">
+    <div class="regist">
+      <button
+        class="btn btn-danger btn-sm"
+        @click="moveToRegist">
+        신규 등록
+      </button>
+    </div>
     <div class="store-list">
       <table class="table table-striped">
         <thead>
@@ -46,13 +53,6 @@
         </tbody>
       </table>
     </div>
-    <div class="regist">
-      <button
-        class="btn btn-danger btn-sm"
-        @click="moveToRegist">
-        신규 등록
-      </button>
-    </div>
   </div>
 </template>
 
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     subscribe() {
-    this.unsubscribe = this.$firebase.firestore().collection("store").onSnapshot((snapshot) => {
+    this.unsubscribe = this.$firebase.firestore().collection("store").orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
       if (snapshot.empty) {
         this.stores = []
         return
