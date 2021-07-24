@@ -1,16 +1,6 @@
 @@ -0,0 +1,40 @@
 <template>
   <div class="container">
-    <div>
-      <input
-        type="text"
-        v-model="url" />
-      <button @click="crawling">
-        crawling
-      </button>
-      <p>제목 : {{ title }}</p>
-    </div>
-
     <div class="info-wrapper kim-info">
       <h1>
         세 끼 먹는 김사원
@@ -76,13 +66,14 @@
       </div>
     </div>
 
-    <div>special thanks to.</div>
-    <div>김사원세끼 HEROPY dev.memi </div>
+    <div class="thanks">
+      <div>Special Thanks to 🙏🏻</div>
+      <div>김사원세끼 / HEROPY / memi dev </div>
+    </div>
   </div>
 </template>
 
 <script>
-// import axios from "axios"
 
 export default {
   data() {
@@ -95,30 +86,28 @@ export default {
       jungGithubURL: 'https://github.com/protect-me',
     }
   },
-  methods: {
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
   font-family: 'TmonMonsori';
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   height: calc(100vh - 120px);
   .info-wrapper {
+    margin: 0 auto;
+    max-width: 600px;
+    margin-bottom: 50px;
     h1 {
-      font-size: 40px;
+      font-size: 2.5rem;
       line-height: 1;
       div {
         margin-top: 10px;
-        font-size: 70px;
+        font-size: 4rem;
         color: $primary;
       }
     }
     p {
-      font-size: 30px;
+      font-size: 1.8rem;
       color: $gray-600;
     }
     .link {
@@ -126,11 +115,15 @@ export default {
       a {
         text-decoration: none;
         span {
-          font-size: 30px;
+          font-size: 1.8rem;
           margin-right: 10px;
         }
       }
     }
+  }
+  .thanks {
+    text-align: center;
+    font-size: 1.2rem;
   }
 }
 @include media-breakpoint-down(sm) {
