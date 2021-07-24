@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <RouterView />
   </div>
 </template>
@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-;
+.container {
+  font-family: 'TmonMonsori', sans-serif;
+}
 </style>

@@ -1,70 +1,68 @@
 <template>
-  <div class="container">
-    <div class="title">
-      <span v-if="!updateMode">신규 상호 등록</span>
-      <span v-else>기존 상호 수정</span>
-    </div>
+  <div class="title">
+    <span v-if="!updateMode">신규 상호 등록</span>
+    <span v-else>기존 상호 수정</span>
+  </div>
   
-    <div class="input-group mb-3">
-      <input
-        v-model="form.name"
-        type="text"
-        class="form-control"
-        placeholder="상호명" />      
-    </div>
+  <div class="input-group mb-3">
+    <input
+      v-model="form.name"
+      type="text"
+      class="form-control"
+      placeholder="상호명" />      
+  </div>
 
-    <div class="selects mb-3">
-      <select
-        v-model="form.category"
-        class="form-select">
-        <option selected>
-          카테고리
-        </option>
-        <option
-          v-for="(category, index) in categories"
-          :key="index">
-          {{ category }}
-        </option>
-      </select>
-    </div>
+  <div class="selects mb-3">
+    <select
+      v-model="form.category"
+      class="form-select">
+      <option selected>
+        카테고리
+      </option>
+      <option
+        v-for="(category, index) in categories"
+        :key="index">
+        {{ category }}
+      </option>
+    </select>
+  </div>
 
-    <div class="input-group mb-3">
-      <input
-        v-model="form.url"
-        type="text"
-        class="form-control"
-        placeholder="유튜브 링크 (ex. https://www.youtube.com/watch?...)" />
-    </div>
+  <div class="input-group mb-3">
+    <input
+      v-model="form.url"
+      type="text"
+      class="form-control"
+      placeholder="유튜브 링크 (ex. https://www.youtube.com/watch?...)" />
+  </div>
 
-    <div class="input-group mb-3">
-      <input
-        v-model="form.tag"
-        type="text"
-        class="form-control"
-        placeholder="태그 (메뉴명, 지역명 등을 #으로 구분해서 입력해주세요)" />
-    </div>
+  <div class="input-group mb-3">
+    <input
+      v-model="form.tag"
+      type="text"
+      class="form-control"
+      placeholder="태그 (메뉴명, 지역명 등을 #으로 구분해서 입력해주세요)" />
+  </div>
 
-    <div class="input-group mb-3 addressInput">
-      <input
-        v-model="form.address"
-        type="text"
-        class="form-control" 
-        placeholder="주소 (아래에서 검색/선택 해주세요)"
-        readonly />
-    </div>
+  <div class="input-group mb-3 addressInput">
+    <input
+      v-model="form.address"
+      type="text"
+      class="form-control" 
+      placeholder="주소 (아래에서 검색/선택 해주세요)"
+      readonly />
+  </div>
 
-    <div class="input-group mb-3 daum-wrapper">
-      <VueDaumPostcode @complete="addressSelected($event)" />
-    </div>
+  <div class="input-group mb-3 daum-wrapper">
+    <VueDaumPostcode @complete="addressSelected($event)" />
+  </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button
-        class="btn btn-primary"
-        :disabled="isProcessing"
-        @click="apply">
-        등록
-      </button>
-    </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button
+      class="btn btn-primary"
+      :disabled="isProcessing"
+      @click="apply">
+      등록
+    </button>
   </div>
 </template>
 
@@ -136,12 +134,12 @@ export default {
       // JavaSciprt Key : e9b8744f142d87e82a9a840a32aa395b
       // REST API Key : 8aec30f44a150144c4bcac2194e4d9f7
 
-      let restAPIKey = "8aec30f44a150144c4bcac2194e4d9f7" // REST API key
+      // let restAPIKey = "8aec30f44a150144c4bcac2194e4d9f7" // REST API key
       let queryString = this.form.address
 
       let URL = "https://dapi.kakao.com/v2/local/search/address.json?query=" + queryString
       axios.defaults.withCredentials = false
-      axios.defaults.headers.common["Authorization"] = "KakaoAK " + restAPIKey
+      axios.defaults.headers.common["Authorization"] = "KakaoAK " + process.env.VUE_APP_KAKAO_ADDRESS_REST_API_KEY
       axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded"
       await axios
         .get(URL)
@@ -226,16 +224,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  font-family: 'TmonMonsori';
-  .title {
-    font-size: 30px;
-    color: $primary;
-    margin-bottom: 20px;
-  }
-  .daum-wrapper {
-    display: flex;
-    justify-content: center;
-  }
+.title {
+  font-size: 30px;
+  color: $primary;
+  margin-bottom: 20px;
+}
+.daum-wrapper {
+  display: flex;
+  justify-content: center;
 }
 </style>

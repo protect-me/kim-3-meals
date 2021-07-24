@@ -1,58 +1,56 @@
 <template>
-  <div class="container">
-    <div class="regist">
-      <button
-        class="btn btn-danger btn-sm"
-        @click="moveToRegist">
-        신규 등록
-      </button>
-    </div>
-    <div class="store-list">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scoped="col">
-              상호명
-            </th>
-            <th scoped="col">
-              카테고리
-            </th>
-            <th scoped="col">
-              주소
-            </th>
-            <th scoped="col">
+  <div class="regist">
+    <button
+      class="btn btn-danger btn-sm"
+      @click="moveToRegist">
+      신규 등록
+    </button>
+  </div>
+  <div class="store-list">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scoped="col">
+            상호명
+          </th>
+          <th scoped="col">
+            카테고리
+          </th>
+          <th scoped="col">
+            주소
+          </th>
+          <th scoped="col">
+            수정
+          </th>
+          <th scoped="col">
+            삭제
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(store, index) in stores"
+          :key="index">
+          <td>{{ store.name }}</td>
+          <td>{{ store.category }}</td>
+          <td>{{ store.address }}</td>
+          <td class="td-btn">
+            <button
+              class="btn btn-primary btn-sm"
+              @click="updateStore(store)">
               수정
-            </th>
-            <th scoped="col">
+            </button>
+          </td>
+          <td class="td-btn">
+            <button
+              class="btn btn-danger btn-sm"
+              @click="deleteStore(store)">
               삭제
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(store, index) in stores"
-            :key="index">
-            <td>{{ store.name }}</td>
-            <td>{{ store.category }}</td>
-            <td>{{ store.address }}</td>
-            <td class="td-btn">
-              <button
-                class="btn btn-primary btn-sm"
-                @click="updateStore(store)">
-                수정
-              </button>
-            </td>
-            <td class="td-btn">
-              <button
-                class="btn btn-danger btn-sm"
-                @click="deleteStore(store)">
-                삭제
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -123,24 +121,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  .store-list {
-    width: 100%;
-    background-color: #fff;
-    table {
-      font-size: 14px;
-      tbody {
-        tr {
-          .td-btn {
-            padding: 2px;
-          }
+.store-list {
+  width: 100%;
+  background-color: #fff;
+  table {
+    font-size: 14px;
+    tbody {
+      tr {
+        .td-btn {
+          padding: 2px;
         }
       }
     }
   }
-  .regist {
-    float: right;
-    margin-right: 10px;
-  }
+}
+.regist {
+  float: right;
+  margin-right: 10px;
 }
 </style>
