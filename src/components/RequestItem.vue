@@ -23,7 +23,7 @@
 
     <div class="right-area">
       <div
-        v-if="isThisUsersRequest || fireUser.level == 0"
+        v-if="isThisUsersRequest || (fireUser && fireUser.level == 0)"
         class="more icon-wrapper">
         <div
           class="icon"
