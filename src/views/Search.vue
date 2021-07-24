@@ -230,12 +230,16 @@ export default {
   }
   .result {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     min-height: 100px;
+    max-height: calc(100vh - 315px);
+    overflow: scroll;
     border-radius: 5px;
     background-color: $gray-200;
     color: $gray-600;
+    overflow-x: hidden;
   }
   @include media-breakpoint-down(lg) {
     .search {
