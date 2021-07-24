@@ -170,6 +170,10 @@ export default {
         this.isProcessing = false
         return
       }
+      if(this.form.url.indexOf("&t=") != -1) {
+        this.form.url = this.form.url.substring(0, this.form.url.indexOf("&t="))
+      }
+
       await this.getLatLng()
       if (!this.form.address || !this.form.lat || !this.form.lng ) {
         alert("주소를 확인해주세요")
