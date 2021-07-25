@@ -100,11 +100,16 @@ export default {
           this.$emit("requestDeleted")
           alert("성공적으로 삭제되었습니다!")
         } catch(err) {
-          console.log("삭제를 하는 도중 에러가 발생했습니다.", err);
+          alert("삭제를 하는 도중 에러가 발생했습니다.", err);
+          console.log(err);
         }
       }
     },
     async likeBtnClicked() {
+      if (!this.fireUser) {
+        alert("로그인이 필요합니다 :(")
+        return
+      }
       const refRequest = this.$firebase.firestore().collection("requests").doc(this.request.id)
       const refUser = this.$firebase.firestore().collection("users").doc(this.fireUser.uid)
       try {

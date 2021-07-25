@@ -31,17 +31,15 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   watch: {
-    stores(nv, ov) {
-      console.log("o", ov);
-      console.log("n", nv);
-      console.log(this.map);
+    stores() {
+      // console.log(this.map);
       // stores가 변경되면 marker를 다시 그림
       this.setMarker()
     }
   },
   methods: {
-    handleResize(event) {
-      console.log(event, window.innerWidth, window.innerHeight);
+    handleResize() {
+      // console.log(event, window.innerWidth, window.innerHeight);
       
       let that = this
       // const w = window.innerWidth;
@@ -170,7 +168,6 @@ export default {
         kakao.maps.event.addListener(map, 'click', function() {
           // 지도 클릭 시 선택되어 있는 customOverlay 제거
           if (that.selectedMarker) {
-            console.log('Map Clicked!');
             that.selectedMarker.overlay.setMap(null); // 기존 ovelay 제거            
             if(that.selectedMarker) {
               that.selectedMarker = null
@@ -212,7 +209,7 @@ export default {
           that.selectedMarker = marker
           customOverlayMore.setMap(map); // 지도에 올림
           marker.overlay = customOverlayMore
-          console.log("marker", marker.getPosition());
+          // console.log("marker", marker.getPosition());
           panTo(map, marker.getPosition())
         };
       }

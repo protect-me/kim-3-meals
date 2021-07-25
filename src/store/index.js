@@ -59,6 +59,7 @@ export default createStore({
         try {
           snapshot = await firebase.firestore().collection("store").orderBy('createdAt', 'desc').get()
         } catch (err) {
+          alert('모든 데이터를 가져오는데 실패했습니다', err)
           console.log(err);
           commit('updateState', { loading: false }) // Loading Off
         }
@@ -67,6 +68,7 @@ export default createStore({
         try{
           snapshot = await firebase.firestore().collection("store").where("category", "==", category).orderBy('createdAt', 'desc').get()
         } catch (err) {
+          alert('선택된 데이터를 가져오는데 실패했습니다', err)
           console.log(err);
           commit('updateState', { loading: false }) // Loading Off
         }

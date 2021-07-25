@@ -11,7 +11,6 @@ export default {
     Header
   },
   mounted() {
-    console.log(this.$firebase)
   }
 }
 </script>

@@ -109,6 +109,7 @@ export default {
           await this.$firebase.firestore().collection("store").doc(store.id).delete()
           alert("성공적으로 삭제되었습니다!")
         } catch(err) {
+          alert("삭제하는 과정에서 에러가 발생했습니다.", err)
           console.log(err);
         }
       }

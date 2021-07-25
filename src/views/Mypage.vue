@@ -82,9 +82,9 @@ export default {
       this.$firebase.auth().languageCode = 'ko'
       this.isProcessing = true
       try {
-        const snapshot = await this.$firebase.auth().signInWithPopup(provider)
-        console.log(snapshot.user);
+        const snapshot = await this.$firebase.auth().signInWithPopup(provider)  // eslint-disable-line no-unused-vars
       } catch (err) {
+        alert("로그인하는 과정에서 에러가 발생했습니다.", err)
         console.log(err);
       } finally {
         this.isProcessing = false
