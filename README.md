@@ -6,25 +6,25 @@
 
 ## 예시 화면
 - 검색 화면(지도)
-![검색 화면(지도)](https://media.vlpt.us/images/protect-me/post/b0e09d14-c3a3-4225-bfca-766b5d936315/image.png))
+<img src="https://media.vlpt.us/images/protect-me/post/b0e09d14-c3a3-4225-bfca-766b5d936315/image.png" width="700" alt="검색 화면(지도)">
 
 - 검색 화면(카드)
-![검색 화면(카드)](https://media.vlpt.us/images/protect-me/post/13dfeeb9-e959-4df4-8e23-b6ae13186dd8/image.png)
+<img src="https://media.vlpt.us/images/protect-me/post/13dfeeb9-e959-4df4-8e23-b6ae13186dd8/image.png" width="700" alt="검색 화면(카드)">
 
 - 출장 요청 화면
-![출장 요청 화면](https://media.vlpt.us/images/protect-me/post/3c40c739-15c9-4cdc-a20f-64c6a91423d6/image.png)
+<img src="https://media.vlpt.us/images/protect-me/post/3c40c739-15c9-4cdc-a20f-64c6a91423d6/image.png" width="700" alt="출장 요청 화면">
 
 - 출장 요청 화면(주소 검색)
-![출장 요청 화면(주소 검색)](https://media.vlpt.us/images/protect-me/post/d0ca28e0-5607-4360-b141-47427220382e/image.png)
+<img src="https://media.vlpt.us/images/protect-me/post/d0ca28e0-5607-4360-b141-47427220382e/image.png" width="700" alt="출장 요청 화면(주소 검색)">
 
 - 관리자페이지 리스트
-![관리자페이지 리스트](https://media.vlpt.us/images/protect-me/post/b414cc35-bd8a-4f32-b0ec-a85af9f7d51f/image.png)
+<img src="https://media.vlpt.us/images/protect-me/post/b414cc35-bd8a-4f32-b0ec-a85af9f7d51f/image.png" width="700" alt="관리자페이지 리스트">
 
 - 관리자 페이지 신규 상호 등록
-![관리자 페이지 신규 상호 등록](https://media.vlpt.us/images/protect-me/post/443b6ac7-addb-44fc-b9c2-e2b877a8119b/image.png)
+<img src="https://media.vlpt.us/images/protect-me/post/443b6ac7-addb-44fc-b9c2-e2b877a8119b/image.png" width="700" alt="관리자 페이지 신규 상호 등록">
 
 - 관리자 페이지 기존 상호 수정
-![관리자 페이지 기존 상호 수정](https://media.vlpt.us/images/protect-me/post/b1cf45c0-9a5f-47e8-94f9-86a6132ee71b/image.png)
+<img src="https://media.vlpt.us/images/protect-me/post/b1cf45c0-9a5f-47e8-94f9-86a6132ee71b/image.png" width="700" alt="관리자 페이지 기존 상호 수정">
 
 
 ## 개요
