@@ -149,7 +149,7 @@ export default {
         })
         .catch((err) => {
           alert("위도/경도를 가져오는 과정에서 에러가 발생했습니다.", err)
-          (err)
+          console.log(err)
         })
     },
     async apply() {
