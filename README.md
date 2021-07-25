@@ -1,7 +1,7 @@
 # kim-3-meals
 
 ## 링크
-[김사원세끼 맛집 지도](https://sleepy-kalam-47be42.netlify.app, "Go kim-3-meals")
+[김사원세끼 맛집 지도](https://sleepy-kalam-47be42.netlify.app "Go kim-3-meals")
 
 ## 개요
 유튜브 김세원 세끼 맛집 지도 및 출장 요청 페이지
