@@ -8,29 +8,6 @@
 ## 프로젝트 링크
 [김사원세끼 맛집 지도](https://sleepy-kalam-47be42.netlify.app "Go kim-3-meals")
 
-## 사용 예시 화면
-- 검색 화면(지도)
-<img src="https://media.vlpt.us/images/protect-me/post/b0e09d14-c3a3-4225-bfca-766b5d936315/image.png" width="700" alt="검색 화면(지도)">
-
-- 검색 화면(카드)
-<img src="https://media.vlpt.us/images/protect-me/post/13dfeeb9-e959-4df4-8e23-b6ae13186dd8/image.png" width="700" alt="검색 화면(카드)">
-
-- 출장 요청 화면
-<img src="https://media.vlpt.us/images/protect-me/post/3c40c739-15c9-4cdc-a20f-64c6a91423d6/image.png" width="700" alt="출장 요청 화면">
-
-- 출장 요청 화면(주소 검색)
-<img src="https://media.vlpt.us/images/protect-me/post/d0ca28e0-5607-4360-b141-47427220382e/image.png" width="700" alt="출장 요청 화면(주소 검색)">
-
-- 관리자페이지 리스트
-<img src="https://media.vlpt.us/images/protect-me/post/b414cc35-bd8a-4f32-b0ec-a85af9f7d51f/image.png" width="700" alt="관리자페이지 리스트">
-
-- 관리자 페이지(신규 상호 등록)
-<img src="https://media.vlpt.us/images/protect-me/post/443b6ac7-addb-44fc-b9c2-e2b877a8119b/image.png" width="700" alt="관리자 페이지(신규 상호 등록)">
-
-- 관리자 페이지(기존 상호 수정)
-<img src="https://media.vlpt.us/images/protect-me/post/b1cf45c0-9a5f-47e8-94f9-86a6132ee71b/image.png" width="700" alt="관리자 페이지(기존 상호 수정)">
-
-
 ## 개요
 
 - Configuration Tree
@@ -64,11 +41,35 @@
     └── Delete
 ```
 
+## 사용 예시 화면
+- 검색 화면(지도)
+<img src="https://media.vlpt.us/images/protect-me/post/b0e09d14-c3a3-4225-bfca-766b5d936315/image.png" width="700" alt="검색 화면(지도)">
+
+- 검색 화면(카드)
+<img src="https://media.vlpt.us/images/protect-me/post/13dfeeb9-e959-4df4-8e23-b6ae13186dd8/image.png" width="700" alt="검색 화면(카드)">
+
+- 출장 요청 화면
+<img src="https://media.vlpt.us/images/protect-me/post/3c40c739-15c9-4cdc-a20f-64c6a91423d6/image.png" width="700" alt="출장 요청 화면">
+
+- 출장 요청 화면(주소 검색)
+<img src="https://media.vlpt.us/images/protect-me/post/d0ca28e0-5607-4360-b141-47427220382e/image.png" width="700" alt="출장 요청 화면(주소 검색)">
+
+- 관리자페이지 리스트
+<img src="https://media.vlpt.us/images/protect-me/post/b414cc35-bd8a-4f32-b0ec-a85af9f7d51f/image.png" width="700" alt="관리자페이지 리스트">
+
+- 관리자 페이지(신규 상호 등록)
+<img src="https://media.vlpt.us/images/protect-me/post/443b6ac7-addb-44fc-b9c2-e2b877a8119b/image.png" width="700" alt="관리자 페이지(신규 상호 등록)">
+
+- 관리자 페이지(기존 상호 수정)
+<img src="https://media.vlpt.us/images/protect-me/post/b1cf45c0-9a5f-47e8-94f9-86a6132ee71b/image.png" width="700" alt="관리자 페이지(기존 상호 수정)">
+
+
+
 
 ## 개발 환경 설정 방법(Set Project Environment)
 ### .env
-- .env.sample file 참고
-- root > .env => delete [, ' " comment blank]
+- .env.sample file 참고하여 `root > .env` 파일 생성 
+- 혹은 netlify > console > project > Site settings > Build & Deploy > Environment > Edit variables 추가
 
 > KaKao developers
 1. 카카오 개발자사이트 (https://developers.kakao.com) 접속
@@ -78,15 +79,16 @@
 
 #### Kakao Address : REST API Key
 (kakao develeopers > App Key > REST API Key)
-VUE_APP_KAKAO_ADDRESS_REST_API_KEY=''
+`VUE_APP_KAKAO_ADDRESS_REST_API_KEY=''`
 
 #### Kakao Map : JavaScript Key
 (kakao develeopers > App Key > JavaScript Key)
-VUE_APP_KAKAO_MAP_JAVASCRIPT_KEY=''
+`VUE_APP_KAKAO_MAP_JAVASCRIPT_KEY=''`
 
 #### Firebase : firebaseConfig.js
 1. Firebase 콘솔 > 프로젝트 개요 옆 설정 아이콘 > 프로젝트 설정 > 일반 > 내 앱 > 앱 추가)
 2. SDK 설정 및 구성 > 구성앱의 키 및 식별자가 포함된 Firebase 구성 객체
+```
 VUE_APP_apiKey=''
 VUE_APP_authDomain=''
 VUE_APP_projectId=''
@@ -94,7 +96,7 @@ VUE_APP_storageBucket=''
 VUE_APP_messagingSenderId=''
 VUE_APP_appId=''
 VUE_APP_measurementId=''
-
+```
 
 ### Firebase : key.json
 - (선행) Firebase Blaze 요금제 구매
