@@ -10,7 +10,14 @@
 
 ## 개요
 
-- Configuration Tree
+### SPECS
+- Front End : Vue.js(Vue3)
+- Back End : Firebase
+- Style : SCSS
+- Deployment : Netlify
+- Build(Bundler) : Vue CLI 4
+
+###  Configuration Tree
 ```
 ├── Search(검색)
 │   │  (Search By: Input Keyword, Select Category)
