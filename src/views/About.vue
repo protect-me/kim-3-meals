@@ -18,7 +18,8 @@
             title="새 탭에서 유튜브 열기"
             class="fa fa-arrow-circle-o-right fa-2x"
             aria-hidden="true"
-          ></i>
+          >
+          </i>
         </a>
       </div>
     </div>
@@ -40,8 +41,7 @@
             title="새 탭에서 유튜브 열기"
             class="fa fa-arrow-circle-o-right fa-2x"
             aria-hidden="true"
-          >
-          </i>
+          ></i>
         </a>
       </div>
       <div class="link">
