@@ -120,6 +120,7 @@ import StoreList from "@/components/StoreList";
 import StoreCard from "@/components/StoreCard";
 import StoreMap from "@/components/StoreMap";
 import Loader from "@/components/Loader";
+import { getCookie, setCookie } from "@/plugins/cookie.js";
 
 export default {
   components: {
@@ -127,6 +128,9 @@ export default {
     StoreCard,
     StoreMap,
     Loader,
+  },
+  mounted() {
+    this.checkVisitCount("searchPage");
   },
   computed: {
     ...mapState(["stores", "loading"]),
@@ -168,6 +172,28 @@ export default {
         mode == changed
           ? (this.resultMode[mode] = "on")
           : (this.resultMode[mode] = "off");
+      }
+    },
+    checkVisitCount(pageName) {
+      const cookieName =
+        "kim3mealsVisitHistory" +
+        pageName[0].toUpperCase() +
+        pageName.slice(1, pageName.length);
+      const userHistory = getCookie(cookieName);
+      if (!userHistory) {
+        setCookie(cookieName, pageName, 1);
+        this.visitCountUp(pageName);
+      }
+    },
+    async visitCountUp(pageName) {
+      try {
+        await this.$firebase
+          .firestore()
+          .collection("meta")
+          .doc("visitCounts")
+          .update(pageName, this.$firebase.firestore.FieldValue.increment(1));
+      } catch (err) {
+        console.log(err);
       }
     },
   },

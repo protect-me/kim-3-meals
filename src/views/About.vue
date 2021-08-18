@@ -71,7 +71,12 @@
 </template>
 
 <script>
+import { getCookie, setCookie } from "@/plugins/cookie.js";
+
 export default {
+  mounted() {
+    this.checkVisitCount("aboutPage");
+  },
   data() {
     return {
       url: "http://gdata.youtube.com/feeds/api/videos/ylLzyHk54Z0",
@@ -81,6 +86,30 @@ export default {
       jungVelogURL: "https://velog.io/@protect-me/series",
       jungGithubURL: "https://github.com/protect-me",
     };
+  },
+  methods: {
+    checkVisitCount(pageName) {
+      const cookieName =
+        "kim3mealsVisitHistory" +
+        pageName[0].toUpperCase() +
+        pageName.slice(1, pageName.length);
+      const userHistory = getCookie(cookieName);
+      if (!userHistory) {
+        setCookie(cookieName, pageName, 1);
+        this.visitCountUp(pageName);
+      }
+    },
+    async visitCountUp(pageName) {
+      try {
+        await this.$firebase
+          .firestore()
+          .collection("meta")
+          .doc("visitCounts")
+          .update(pageName, this.$firebase.firestore.FieldValue.increment(1));
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>

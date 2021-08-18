@@ -34,16 +34,16 @@ export default createStore({
     }
   },
   actions: { // dispatch
-    setFireUser({commit}, payload) {
+    setFireUser({ commit }, payload) {
       commit('setFireUser', payload)
     },
-    setUser({commit}, payload) {
+    setUser({ commit }, payload) {
       commit('setUser', payload)
     },
-    async searchStores({state, commit}, payload) {
+    async searchStores({ state, commit }, payload) {
       if (state.loading) return // loading 중일 경우 return 
-      
-      const { keyword="", category="카테고리", resultMode="" } = payload;
+
+      const { keyword = "", category = "카테고리", resultMode = "" } = payload;
 
       // mode가 map일 경우, loading을 활성화 시키지 않음으로써
       // kakao map이 re-render되는 것을 방지하고자 함
@@ -53,10 +53,16 @@ export default createStore({
 
       let snapshot = null
       let stores = null
-      
-      if(category == "카테고리") {
+
+      if (category == "카테고리") {
         // 카테고리가 선택되지 않은 경우, 모든 데이터 get
         try {
+          await firebase
+            .firestore()
+            .collection("meta")
+            .doc("visitCounts")
+            .update("searchCount", firebase.firestore.FieldValue.increment(1));
+
           snapshot = await firebase.firestore().collection("store").orderBy('createdAt', 'desc').get()
         } catch (err) {
           alert('모든 데이터를 가져오는데 실패했습니다', err)
@@ -65,7 +71,7 @@ export default createStore({
         }
       } else {
         // 카테고리가 선택된 경우, 1차 필터링
-        try{
+        try {
           snapshot = await firebase.firestore().collection("store").where("category", "==", category).orderBy('createdAt', 'desc').get()
         } catch (err) {
           alert('선택된 데이터를 가져오는데 실패했습니다', err)
@@ -82,16 +88,16 @@ export default createStore({
           const combine = Object.values(item).join(",")
           return combine.includes(keyword)
         })
-      } else { 
+      } else {
         // 키워드가 없을 경우
         stores = snapshot.docs
       }
-      
+
       stores = stores.map(value => {
         const item = value.data()
         // "?v=", 뒤 11자리 video ID 추출
         const subIndex = item.url.indexOf("?v=")
-        const videoId = item.url.substring(subIndex+3, subIndex+14)
+        const videoId = item.url.substring(subIndex + 3, subIndex + 14)
         const thumbnail = `https://img.youtube.com/vi/${videoId}/0.jpg`
         return {
           id: value.id,
