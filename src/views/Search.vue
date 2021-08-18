@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div class="search-header">
-      <!-- <div class="title">
-        검색 및 리스트
-      </div> -->
+      <div class="title">검색 및 리스트</div>
 
       <div class="subtitle">
         <div class="result-count">결과 {{ Object.keys(stores).length }} 개</div>
@@ -183,14 +181,14 @@ export default {
   .search-header {
     margin-bottom: 20px;
     display: flex;
-    /* .title {
+    .title {
       display: flex;
       align-items: flex-end;
       font-size: 30px;
       color: $primary;
       margin-right: 10px;
       flex-shrink: 0;
-    } */
+    }
     .subtitle {
       display: flex;
       width: 100%;
@@ -254,6 +252,9 @@ export default {
   @include media-breakpoint-down(sm) {
     .search-header {
       display: block;
+      .title {
+        display: none;
+      }
     }
   }
 }
