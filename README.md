@@ -6,7 +6,7 @@
 - 관리자 페이지에서 데이터 관리 가능(CRUD - Admin Only)
 
 ## 프로젝트 링크
-[김사원세끼 맛집 지도](https://sleepy-kalam-47be42.netlify.app "Go kim-3-meals")
+[김사원세끼 맛집 지도](https://kim3meals.netlify.app/ "Go kim-3-meals")
 
 ## 개요
 
