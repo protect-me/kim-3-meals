@@ -52,10 +52,14 @@
 <script>
 import { mapState } from "vuex";
 import Loader from "@/components/Loader";
+import { getCookie, setCookie } from "@/plugins/cookie.js";
 
 export default {
   components: {
     Loader,
+  },
+  mounted() {
+    this.checkVisitCount("mypagePage");
   },
   data() {
     return {
@@ -85,6 +89,28 @@ export default {
     },
     moveToAdmin() {
       this.$router.push({ name: "List" });
+    },
+    checkVisitCount(pageName) {
+      const cookieName =
+        "kim3mealsVisitHistory" +
+        pageName[0].toUpperCase() +
+        pageName.slice(1, pageName.length);
+      const userHistory = getCookie(cookieName);
+      if (!userHistory) {
+        setCookie(cookieName, pageName, 1);
+        this.visitCountUp(pageName);
+      }
+    },
+    async visitCountUp(pageName) {
+      try {
+        await this.$firebase
+          .firestore()
+          .collection("meta")
+          .doc("visitCounts")
+          .update(pageName, this.$firebase.firestore.FieldValue.increment(1));
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

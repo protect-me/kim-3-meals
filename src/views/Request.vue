@@ -175,6 +175,7 @@ import { mapState } from "vuex";
 import { VueDaumPostcode } from "vue-daum-postcode";
 import Modal from "@/Utils/Modal";
 import RequestItem from "@/components/RequestItem";
+import { getCookie, setCookie } from "@/plugins/cookie.js";
 
 export default {
   components: {
@@ -184,6 +185,9 @@ export default {
   },
   created() {
     this.subscribe();
+  },
+  mounted() {
+    this.checkVisitCount("requestPage");
   },
   unmounted() {
     if (this.unsubscribe) this.unsubscribe();
@@ -414,6 +418,28 @@ export default {
         likeCount: 0,
         likeUserList: [],
       };
+    },
+    checkVisitCount(pageName) {
+      const cookieName =
+        "kim3mealsVisitHistory" +
+        pageName[0].toUpperCase() +
+        pageName.slice(1, pageName.length);
+      const userHistory = getCookie(cookieName);
+      if (!userHistory) {
+        setCookie(cookieName, pageName, 1);
+        this.visitCountUp(pageName);
+      }
+    },
+    async visitCountUp(pageName) {
+      try {
+        await this.$firebase
+          .firestore()
+          .collection("meta")
+          .doc("visitCounts")
+          .update(pageName, this.$firebase.firestore.FieldValue.increment(1));
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

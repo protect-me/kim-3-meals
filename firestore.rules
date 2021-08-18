@@ -39,5 +39,9 @@ service cloud.firestore {
       allow delete: if approveLevel(0) 
         || (request.auth != null && resource.data.uid == request.auth.uid)
     }
+    match /{document=**} {
+      allow read, update: if true;
+      allow create, delete: if false;
+    }
   }
 }
