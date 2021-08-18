@@ -1,34 +1,33 @@
 <template>
   <div class="container">
     <div class="search-header">
-      <div class="title">
+      <!-- <div class="title">
         검색 및 리스트
-      </div>
+      </div> -->
 
       <div class="subtitle">
-        <div class="result-count">
-          결과 {{ Object.keys(stores).length }} 개
-        </div>
+        <div class="result-count">결과 {{ Object.keys(stores).length }} 개</div>
 
         <div class="result-mode">
           <div
             class="btn-group"
             role="group"
-            aria-label="Basic radio toggle button group">
+            aria-label="Basic radio toggle button group"
+          >
             <input
               type="radio"
               class="btn-check"
               name="btnradio"
               id="btnradio1"
               autocomplete="off"
-              v-model="resultMode.list" />
+              v-model="resultMode.list"
+            />
             <label
               class="btn btn-outline-primary"
               for="btnradio1"
-              @click="changeResultMode('list')">
-              <i
-                class="fa fa-list"
-                aria-hidden="true"></i>
+              @click="changeResultMode('list')"
+            >
+              <i class="fa fa-list" aria-hidden="true"></i>
             </label>
 
             <input
@@ -36,15 +35,15 @@
               class="btn-check"
               name="btnradio"
               id="btnradio2"
-              autocomplete="off" 
-              v-model="resultMode.card" />
+              autocomplete="off"
+              v-model="resultMode.card"
+            />
             <label
               class="btn btn-outline-primary"
               for="btnradio2"
-              @click="changeResultMode('card')">
-              <i
-                class="fa fa-th-large"
-                aria-hidden="true"></i>
+              @click="changeResultMode('card')"
+            >
+              <i class="fa fa-th-large" aria-hidden="true"></i>
             </label>
 
             <input
@@ -52,16 +51,16 @@
               class="btn-check"
               name="btnradio"
               id="btnradio3"
-              autocomplete="off" 
+              autocomplete="off"
               checked
-              v-model="resultMode.map" />
+              v-model="resultMode.map"
+            />
             <label
               class="btn btn-outline-primary"
               for="btnradio3"
-              @click="changeResultMode('map')">
-              <i
-                class="fa fa-map"
-                aria-hidden="true"></i>
+              @click="changeResultMode('map')"
+            >
+              <i class="fa fa-map" aria-hidden="true"></i>
             </label>
           </div>
         </div>
@@ -74,131 +73,124 @@
         class="form-control search-input"
         v-model="form.keyword"
         placeholder="상호명 또는 메뉴를 검색해주세요"
-        @keyup.enter="search" />
+        @keyup.enter="search"
+      />
 
       <div class="selects">
-        <select
-          v-model="form.category"
-          class="form-select">
-          <option
-            selected
-            class="default">
-            카테고리
-          </option>
-          <option
-            v-for="(category, index) in categories"
-            :key="index">
+        <select v-model="form.category" class="form-select">
+          <option selected class="default">카테고리</option>
+          <option v-for="(category, index) in categories" :key="index">
             {{ category }}
           </option>
         </select>
 
-        <button
-          class="btn btn-primary"
-          @click="search">
-          검색
-        </button>
+        <button class="btn btn-primary" @click="search">검색</button>
       </div>
     </div>
 
     <div class="result">
       <Loader v-if="loading" />
 
-      <StoreMap 
-        v-else-if="resultMode.map == 'on'"
-        :stores="stores" />
+      <StoreMap v-else-if="resultMode.map == 'on'" :stores="stores" />
 
-      <div
-        v-else-if="stores.length <= 0 && !isSearched"
-        class="no-result">
+      <div v-else-if="stores.length <= 0 && !isSearched" class="no-result">
         <div class="no-result-text">
           검색어를 입력하거나 카테고리를 선택해주세요 :)
         </div>
       </div>
 
-      <div
-        v-else-if="stores.length <= 0 && isSearched"
-        class="no-result">
-        <div class="no-result-text">
-          검색 결과가 없습니다 :(
-        </div>
+      <div v-else-if="stores.length <= 0 && isSearched" class="no-result">
+        <div class="no-result-text">검색 결과가 없습니다 :(</div>
       </div>
 
       <StoreList
-        v-else-if="stores.length > 0 && resultMode.list == 'on'" 
-        :stores="stores" />
+        v-else-if="stores.length > 0 && resultMode.list == 'on'"
+        :stores="stores"
+      />
 
       <StoreCard
-        v-else-if="stores.length > 0 && resultMode.card == 'on'" 
-        :stores="stores" />
+        v-else-if="stores.length > 0 && resultMode.card == 'on'"
+        :stores="stores"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex"
-import StoreList from "@/components/StoreList"
-import StoreCard from "@/components/StoreCard"
-import StoreMap from "@/components/StoreMap"
-import Loader from "@/components/Loader"
+import { mapState } from "vuex";
+import StoreList from "@/components/StoreList";
+import StoreCard from "@/components/StoreCard";
+import StoreMap from "@/components/StoreMap";
+import Loader from "@/components/Loader";
 
 export default {
   components: {
     StoreList,
     StoreCard,
     StoreMap,
-    Loader
+    Loader,
   },
   computed: {
-    ...mapState(["stores", "loading"])
+    ...mapState(["stores", "loading"]),
   },
   data() {
     return {
       isSearched: false,
-      resultMode : {
-        list: 'off',
-        card: 'off',
-        map: 'on',
+      resultMode: {
+        list: "off",
+        card: "off",
+        map: "on",
       },
-      categories: ['한식', '중식', '일식', '양식', '분식', '구이', '회/초밥', '기타'],
+      categories: [
+        "한식",
+        "중식",
+        "일식",
+        "양식",
+        "분식",
+        "구이",
+        "회/초밥",
+        "기타",
+      ],
       form: {
-        keyword: '',
-        category: '카테고리'
-      }
-    }
+        keyword: "",
+        category: "카테고리",
+      },
+    };
   },
   methods: {
     search() {
-      this.isSearched = true
-      for(const arr of Object.entries(this.resultMode)) {
-        if (arr.includes('on')) this.form.resultMode = arr[0]
+      this.isSearched = true;
+      for (const arr of Object.entries(this.resultMode)) {
+        if (arr.includes("on")) this.form.resultMode = arr[0];
       }
-      this.$store.dispatch("searchStores", this.form)
+      this.$store.dispatch("searchStores", this.form);
     },
     changeResultMode(changed) {
       for (const mode in this.resultMode) {
-        (mode == changed) 
-          ? this.resultMode[mode] = 'on'
-          : this.resultMode[mode] = 'off'
+        mode == changed
+          ? (this.resultMode[mode] = "on")
+          : (this.resultMode[mode] = "off");
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .container {
-  font-family: 'TmonMonsori';
+  padding-top: 80px;
+  font-family: "TmonMonsori";
   .search-header {
     margin-bottom: 20px;
-    display: flex;    
-    .title {
+    display: flex;
+    /* .title {
       display: flex;
       align-items: flex-end;
       font-size: 30px;
       color: $primary;
       margin-right: 10px;
       flex-shrink: 0;
-    }
+    } */
     .subtitle {
       display: flex;
       width: 100%;
@@ -251,10 +243,10 @@ export default {
       .selects {
         display: flex;
         select {
-          width: 50%
+          width: 50%;
         }
         .btn {
-          width: 50%
+          width: 50%;
         }
       }
     }

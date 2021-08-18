@@ -56,6 +56,8 @@
       </div>
     </div>
 
+    <div class="finger-down">👇🏻👇🏻👇🏻</div>
+
     <div class="contact">
       <div>Contact 🚀</div>
       <div>pmfwiww@gmail.com</div>
@@ -88,9 +90,9 @@ export default {
   font-family: "TmonMonsori";
   height: calc(100vh - 120px);
   .info-wrapper {
-    margin: 0 auto;
     max-width: 600px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
     h1 {
       font-size: 2.5rem;
       line-height: 1;
@@ -115,8 +117,17 @@ export default {
       }
     }
   }
-  .thanks {
+  .finger-down {
     text-align: center;
+    margin-bottom: 30px;
+  }
+  .contact {
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  .thanks {
+    text-align: right;
     font-size: 1.2rem;
   }
 }

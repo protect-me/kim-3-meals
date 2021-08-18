@@ -3,37 +3,21 @@
   <header>
     <Logo />
     <div class="nav nav-pills">
-      <div
-        class="nav-item" 
-        v-for="nav in navigations"
-        :key="nav.name">
-        <RouterLink
-          class="nav-link"
-          active-class="active"
-          :to="nav.href">
+      <div class="nav-item" v-for="nav in navigations" :key="nav.name">
+        <RouterLink class="nav-link" active-class="active" :to="nav.href">
           {{ nav.name }}
         </RouterLink>
       </div>
       <div class="nav-item">
-        <RouterLink
-          class="nav-link nav-link-account"
-          to="/mypage">
-          <div
-            v-if="!fireUser"
-            class="avatar-wrapper">
+        <RouterLink class="nav-link nav-link-account" to="/mypage">
+          <div v-if="!fireUser" class="avatar-wrapper">
             <div class="avatar">
-              <i
-                class="fa fa-user-circle-o fa-1x"
-                aria-hidden="true"></i>
+              <i class="fa fa-user-circle-o fa-1x" aria-hidden="true"></i>
             </div>
           </div>
-          <div
-            v-else
-            class="avatar-wrapper">
+          <div v-else class="avatar-wrapper">
             <div class="avatar">
-              <img
-                :src="fireUser.photoURL"
-                alt="photo" />
+              <img :src="fireUser.photoURL" alt="photo" />
             </div>
           </div>
         </RouterLink>
@@ -43,15 +27,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
-import Logo from "@/components/Logo"
+import { mapState } from "vuex";
+import Logo from "@/components/Logo";
 
 export default {
   components: {
     Logo,
   },
   computed: {
-    ...mapState(["fireUser", "user"])
+    ...mapState(["fireUser", "user"]),
   },
   data() {
     return {
@@ -76,7 +60,8 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  font-family: 'TmonMonsori', sans-serif;
+  font-family: "TmonMonsori", sans-serif;
+  width: 100%;
   height: 70px;
   padding: 0 40px;
   display: flex;
@@ -106,21 +91,25 @@ header {
               height: 100%;
             }
           }
-        }    
+        }
       }
     }
   }
 }
 @include media-breakpoint-down(md) {
   header {
-    padding: 0;
-    flex-direction: column;
-    height: auto;
+    padding: 0 10px;
+    justify-content: space-between;
+    /* flex-direction: column;
+    height: auto; */
     .logo {
       margin: 5px 0;
     }
     .nav {
       .nav-item {
+        .nav-link {
+          padding: 12px;
+        }
         .nav-link-account {
           margin-left: 0px;
         }
