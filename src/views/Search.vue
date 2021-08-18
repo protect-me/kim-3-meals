@@ -176,7 +176,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  padding-top: 80px;
+  padding-top: 70px;
   font-family: "TmonMonsori";
   .search-header {
     margin-bottom: 20px;
@@ -224,7 +224,7 @@ export default {
     justify-content: center;
     align-items: center;
     min-height: 100px;
-    max-height: calc(100vh - 315px);
+    max-height: calc(100vh - 240px);
     overflow: scroll;
     border-radius: 5px;
     background-color: $gray-200;

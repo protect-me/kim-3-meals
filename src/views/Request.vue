@@ -421,6 +421,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  padding-top: 70px;
   font-family: "TmonMonsori";
   position: relative;
   .request-header {

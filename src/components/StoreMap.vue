@@ -37,11 +37,11 @@ export default {
   methods: {
     handleResize() {
       // console.log(event, window.innerWidth, window.innerHeight);
-
+      // 80 +65 + 107  = 252
       let that = this;
       // const w = window.innerWidth;
       const h = window.innerHeight;
-      const calcH = h - 315 + "px";
+      const calcH = h - 240 + "px"; // search .result height 확인
 
       function resizeMap() {
         var mapContainer = document.getElementById("map");
