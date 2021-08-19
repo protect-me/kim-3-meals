@@ -228,7 +228,7 @@ export default {
       function panTo(map, latlng) {
         // 지도 중심을 부드럽게 이동시킵니다
         // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동)
-        latlng.Ma += 0.02; // 가운데로 위치시키면 customOverlayMore가 잘려서 나오기 때문에 위치조정
+        latlng.Ma += 0.002; // 가운데로 위치시키면 customOverlayMore가 잘려서 나오기 때문에 위치조정
         map.panTo(latlng);
       }
     },
