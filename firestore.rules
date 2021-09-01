@@ -16,7 +16,9 @@ service cloud.firestore {
         before.likeCount != after.likeCount &&
         before.likeUserList != after.likeUserList    
     }
-
+    function updateVisitCount(before, after) {
+	    return (before.aboutPage + before.mypagePage + before.requestPage + before.searchCount + before.searchPage) + 1 == (after.aboutPage + after.mypagePage + after.requestPage + after.searchCount + after.searchPage)
+    }
     match /users/{userId} {
       allow read: if approveLevel(0) 
         || (request.auth != null && request.auth.uid == userId);
@@ -39,8 +41,8 @@ service cloud.firestore {
       allow delete: if approveLevel(0) 
         || (request.auth != null && resource.data.uid == request.auth.uid)
     }
-    match /{document=**} {
-      allow read, update: if true;
+    match /meta/{visitCount} {
+      allow read, update: if updateVisitCount(resource.data, request.resource.data);
       allow create, delete: if false;
     }
   }

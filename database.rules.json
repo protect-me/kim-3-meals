@@ -1,6 +1,10 @@
 {
   "rules": {
-    ".read": false,
-    ".write": "root.child('users').child(auth.uid).child('level').val() == 0"
+    "users": {
+      "$uid": {
+        ".read": "(auth != null && auth.uid == $uid) || data.child('level').val() == 0",
+        ".write": "(auth != null && auth.uid == $uid && data.child('level').val() == newData.child('level').val()) || data.child('level').val() == 0"
+      }
+    }
   }
 }
