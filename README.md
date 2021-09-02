@@ -53,7 +53,7 @@
 <img src="https://media.vlpt.us/images/protect-me/post/b0e09d14-c3a3-4225-bfca-766b5d936315/image.png" width="700" alt="검색 화면(지도)">
 
 - 검색 화면(카드)
-<img src="https://media.vlpt.us/images/protect-me/post/13dfeeb9-e959-4df4-8e23-b6ae13186dd8/image.png" width="700" alt="검색 화면(카드)">
+<img src="https://media.vlpt.us/images/protect-me/post/3b9eb6ab-f516-48d6-9ace-cf641476cf6d/image.png" width="700" alt="검색 화면(카드)">
 
 - 출장 요청 화면
 <img src="https://media.vlpt.us/images/protect-me/post/3c40c739-15c9-4cdc-a20f-64c6a91423d6/image.png" width="700" alt="출장 요청 화면">
