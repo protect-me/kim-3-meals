@@ -74,6 +74,8 @@
 
 
 ## 개발 환경 설정 방법(Set Project Environment)
+참고: https://velog.io/@protect-me/kim-3-meals
+
 ### .env
 - .env.sample file 참고하여 `root > .env` 파일 생성 
 - 혹은 netlify > console > project > Site settings > Build & Deploy > Environment > Edit variables 추가
@@ -128,83 +130,20 @@ https://firebase.google.com/docs/functions/config-env
 #### use example
 `functions.config().admin.db_url`
 
-### firestore.rules
-#### init
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 8, 7);
-    }
-  }
-}
-```
-#### changed
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    function approveLevel(level) {
-      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.level <= level;
-    }
-    function updateLikeCount(before, after) {
-      return before.address == after.address &&
-        before.category == after.category &&
-        before.comment == after.comment &&
-        before.createdAt == after.createdAt &&
-        before.id == after.id &&
-        before.name == after.name &&
-        before.uid == after.uid &&
-        before.userName == after.userName &&
-        before.likeCount != after.likeCount &&
-        before.likeUserList != after.likeUserList    
-    }
-
-    match /users/{userId} {
-      allow read: if approveLevel(0) 
-        || (request.auth != null && request.auth.uid == userId);
-      allow update: if approveLevel(0)
-        || (request.auth != null && request.auth.uid == userId && resource.data.level == request.resource.data.level);
-      allow create, delete: if false; // functions
-    }
-    match /store/{storeId} {
-      allow read: if true;
-      allow create: if approveLevel(0);
-      allow update, delete: if approveLevel(0) 
-        || resource.data.uid == request.auth.uid;
-    }
-    match /requests/{requestId} {
-      allow read: if true;
-      allow create: if request.auth != null;
-      allow update: if approveLevel(0)
-        || (request.auth != null && resource.data.uid == request.auth.uid)
-        || updateLikeCount(resource.data, request.resource.data)
-      allow delete: if approveLevel(0) 
-        || (request.auth != null && resource.data.uid == request.auth.uid)
-    }
-  }
-}
-```
-#### deploy
-`$ firebase deploy --only firestore`
-
-
 
 ## 프로젝트 설치 방법(Project setup)
 ```
-yarn install
+npm install --save
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm run build
 ```
 
 
