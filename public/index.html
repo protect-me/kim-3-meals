@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
+    <title>kim3meals</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="김사원세끼 유튜브 맛집 지도" />
+    <meta property="og:title" content="김사원세끼 유튜브 맛집 지도" />
+    <meta
+      property="og:description"
+      content="김사원세끼 맛집 지도 및 출장 요청"
+    />
+    <meta
+      property="og:image"
+      content="https://media.vlpt.us/images/protect-me/post/c6ea3472-c8f9-46e1-93ae-ea854d371c22/kim3meals_meta_img.png"
+    />
+    <meta property="og:url" content="https://kim3meals.com/" />
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <title><%= htmlWebpackPlugin.options.title %></title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=486a425ae547a5bc41030e47f9828d0a"></script>
-</head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=486a425ae547a5bc41030e47f9828d0a"
+    ></script>
+  </head>
 
-<body>
-  <noscript>
-    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
-      Please enable it to continue.</strong>
-  </noscript>
-  <div id="app"></div>
-  <!-- built files will be auto injected -->
-</body>
-
+  <body>
+    <noscript>
+      <strong>
+        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to continue.
+      </strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>
 
 <style lang="scss">
   @font-face {
     font-family: 'TmonMonsori';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff')
+      format('woff');
     font-weight: normal;
     font-style: normal;
   }
