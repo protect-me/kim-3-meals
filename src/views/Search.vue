@@ -1,10 +1,14 @@
 <template>
   <div class="container">
     <div class="search-header">
-      <div class="title">검색 및 리스트</div>
+      <div class="title">
+        검색 및 리스트
+      </div>
 
       <div class="subtitle">
-        <div class="result-count">결과 {{ Object.keys(stores).length }} 개</div>
+        <div class="result-count">
+          결과 {{ Object.keys(stores).length }} 개
+        </div>
 
         <div class="result-mode">
           <div
@@ -25,7 +29,10 @@
               for="btnradio1"
               @click="changeResultMode('list')"
             >
-              <i class="fa fa-list" aria-hidden="true"></i>
+              <i
+                class="fa fa-list"
+                aria-hidden="true"
+              ></i>
             </label>
 
             <input
@@ -41,7 +48,10 @@
               for="btnradio2"
               @click="changeResultMode('card')"
             >
-              <i class="fa fa-th-large" aria-hidden="true"></i>
+              <i
+                class="fa fa-th-large"
+                aria-hidden="true"
+              ></i>
             </label>
 
             <input
@@ -58,7 +68,10 @@
               for="btnradio3"
               @click="changeResultMode('map')"
             >
-              <i class="fa fa-map" aria-hidden="true"></i>
+              <i
+                class="fa fa-map"
+                aria-hidden="true"
+              ></i>
             </label>
           </div>
         </div>
@@ -75,30 +88,57 @@
       />
 
       <div class="selects">
-        <select v-model="form.category" class="form-select">
-          <option selected class="default">카테고리</option>
-          <option v-for="(category, index) in categories" :key="index">
+        <select
+          v-model="form.category"
+          class="form-select"
+        >
+          <option
+            selected
+            class="default"
+          >
+            카테고리
+          </option>
+          <option
+            v-for="(category, index) in categories"
+            :key="index"
+          >
             {{ category }}
           </option>
         </select>
 
-        <button class="btn btn-primary" @click="search">검색</button>
+        <button
+          class="btn btn-primary"
+          @click="search"
+        >
+          검색
+        </button>
       </div>
     </div>
 
     <div class="result">
       <Loader v-if="loading" />
 
-      <StoreMap v-else-if="resultMode.map == 'on'" :stores="stores" />
+      <StoreMap
+        v-else-if="resultMode.map == 'on'"
+        :stores="stores"
+      />
 
-      <div v-else-if="stores.length <= 0 && !isSearched" class="no-result">
+      <div
+        v-else-if="stores.length <= 0 && !isSearched"
+        class="no-result"
+      >
         <div class="no-result-text">
           검색어를 입력하거나 카테고리를 선택해주세요 :)
         </div>
       </div>
 
-      <div v-else-if="stores.length <= 0 && isSearched" class="no-result">
-        <div class="no-result-text">검색 결과가 없습니다 :(</div>
+      <div
+        v-else-if="stores.length <= 0 && isSearched"
+        class="no-result"
+      >
+        <div class="no-result-text">
+          검색 결과가 없습니다 :(
+        </div>
       </div>
 
       <StoreList
@@ -151,6 +191,7 @@ export default {
         "분식",
         "구이",
         "회/초밥",
+        "포차/가맥",
         "기타",
       ],
       form: {
